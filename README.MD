@@ -1,4 +1,6 @@
 # Designing Data-Intensive Applications
+
+- https://docs.google.com/spreadsheets/d/1ra_xR4X9DEkRFnSiHwZqBxMdJgFXX9zyZRdggBcrHAM/edit#gid=0
  
 "Designing Data-Intensive Applications" by Martin Kleppmann is a comprehensive guide to the principles, challenges, and trade-offs involved in building data-intensive systems. The book is divided into three parts, covering the foundations of data systems, data storage and retrieval, and distributed systems. Here's a summary of each chapter:
 
