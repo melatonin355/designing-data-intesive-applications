@@ -125,3 +125,47 @@ In these imperative SQL examples, you are specifying the actions to perform on t
 
 Note that the distinction between declarative and imperative SQL is not strict, and the terms are not always used in the same way by everyone. The examples provided here are meant to illustrate the general idea of declarative SQL as focusing on the desired outcome without specifying how to achieve it, whereas imperative SQL focuses on the actions to be performed on the data.
 
+
+## Further clarification
+
+**Is it fair to say SQL is both imperative and declarative?** Maybe not, maybe yes.. 
+
+
+SQL is primarily a declarative language. However, when it comes to working with stored procedures or triggers, procedural SQL extensions like PL/SQL (in Oracle) or T-SQL (in SQL Server) are used, which have imperative programming constructs.
+
+These procedural extensions allow you to use control structures like loops, conditional statements, and error handling within the database environment, making it possible to create more complex, imperative-style logic.
+
+```sql
+
+-- T-SQL: Create a stored procedure to update the salary of employees in a specific department
+CREATE PROCEDURE UpdateSalaryByDepartment
+    @DepartmentName NVARCHAR(50),
+    @SalaryIncrease DECIMAL(5, 2)
+AS
+BEGIN
+    -- Declare a variable to hold the department ID
+    DECLARE @DepartmentId INT;
+
+    -- Get the department ID
+    SELECT @DepartmentId = id
+    FROM Departments
+    WHERE name = @DepartmentName;
+
+    -- Check if the department ID is not NULL
+    IF @DepartmentId IS NOT NULL
+    BEGIN
+        -- Update the salary of employees in the specified department
+        UPDATE Employees
+        SET salary = salary * (1 + @SalaryIncrease)
+        WHERE department_id = @DepartmentId;
+    END
+    ELSE
+    BEGIN
+        -- Raise an error if the department is not found
+        RAISERROR('The specified department does not exist.', 16, 1);
+    END
+END;
+
+```
+
+In this T-SQL example, we create a stored procedure to update the salary of employees in a specific department. The procedure uses imperative constructs like variable declaration, conditional statements (IF-ELSE), and error handling (RAISERROR) to implement the logic.
