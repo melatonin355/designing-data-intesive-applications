@@ -41,12 +41,15 @@ the section on the relational model versus the document model highlights the fun
 The relational model organizes data in tables (relations) with rows (tuples) and columns (attributes). Each row represents an entity and columns represent its attributes. This model is based on a strict schema, ensuring consistency in data representation. Relational databases, such as PostgreSQL and MySQL, use SQL for querying data. 
 
 Advantages:
+
 a. Schema enforcement, which ensures consistency.
 b. Support for complex joins, which enables querying related data across multiple tables.
 c. Wide adoption and mature ecosystem.
 
 Disadvantages:
+
 a. Limited flexibility in handling hierarchical and complex data structures.
+
 b. Potential performance issues with joins, especially for large-scale data.
 
 
@@ -56,13 +59,18 @@ The document model stores data in semi-structured formats, such as JSON or XML. 
 
 
 Advantages:
+
 a. Greater flexibility in handling diverse and evolving data structures.
+
 b. Better performance for read-heavy workloads and simpler data access patterns, as related data can be stored together in a single document.
+
 c. Easier to scale horizontally due to the denormalized nature of data storage.
 
 
 Disadvantages:
+
 a. Lack of schema enforcement can lead to data inconsistency.
+
 b. Limited support for complex joins, making it challenging to query related data across multiple documents.
 
 The choice between the relational and document model depends on the specific requirements of the application. The relational model is more suitable for applications that require strict consistency, complex querying, and transactional support. In contrast, the document model is more appropriate for applications that need flexibility in data representation, faster read operations, and simpler access patterns.
