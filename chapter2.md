@@ -169,3 +169,6 @@ END;
 ```
 
 In this T-SQL example, we create a stored procedure to update the salary of employees in a specific department. The procedure uses imperative constructs like variable declaration, conditional statements (IF-ELSE), and error handling (RAISERROR) to implement the logic.
+
+
+## How is the data stored in nosql dB? 
