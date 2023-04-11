@@ -58,7 +58,7 @@ b. Potential performance issues with joins, especially for large-scale data.
 The document model stores data in semi-structured formats, such as JSON or XML. It allows for schema-less or schema-flexible storage, providing more flexibility in data representation. Document databases, such as MongoDB and Couchbase, use specialized query languages tailored to their data structures.
 
 
-Advantages:
+### Advantages:
 
 a. Greater flexibility in handling diverse and evolving data structures.
 
@@ -67,10 +67,19 @@ b. Better performance for read-heavy workloads and simpler data access patterns,
 c. Easier to scale horizontally due to the denormalized nature of data storage.
 
 
-Disadvantages:
+### Disadvantages:
 
 a. Lack of schema enforcement can lead to data inconsistency.
 
 b. Limited support for complex joins, making it challenging to query related data across multiple documents.
 
 The choice between the relational and document model depends on the specific requirements of the application. The relational model is more suitable for applications that require strict consistency, complex querying, and transactional support. In contrast, the document model is more appropriate for applications that need flexibility in data representation, faster read operations, and simpler access patterns.
+
+
+## Summary
+Data models are a huge subject, and in this chapter we have taken a quick look at a broad variety of different models. We didn’t have space to go into all the details of each model, but hopefully the overview has been enough to whet your appetite to find out more about the model that best fits your application’s requirements.
+
+Historically, data started out being represented as one big tree (the hierarchical model), but that wasn’t good for representing many-to-many relationships, so the relational model was invented to solve that problem. More recently, developers found that some applications don’t fit well in the relational model either. New nonrelational “NoSQL” datastores have diverged in two main directions:
+
+1. Document databases target use cases where data comes in self-contained docu‐ ments and relationships between one document and another are rare.
+2. Graph databases go in the opposite direction, targeting use cases where anything is potentially related to everything.
