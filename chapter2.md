@@ -83,3 +83,45 @@ Historically, data started out being represented as one big tree (the hierarchic
 
 1. Document databases target use cases where data comes in self-contained docu‐ ments and relationships between one document and another are rare.
 2. Graph databases go in the opposite direction, targeting use cases where anything is potentially related to everything.
+
+
+
+## Questions during review
+
+
+Declarative SQL (also known as the query language) is a way to describe what you want without specifying how to achieve it. In contrast, imperative SQL (also known as the data manipulation language) consists of statements that describe the actions you want to perform on the data.
+
+Here's an example of declarative SQL:
+
+```sql
+-- Declarative SQL: Query to get the names of all employees who work in the 'Finance' department
+SELECT employees.name
+FROM employees
+JOIN departments ON employees.department_id = departments.id
+WHERE departments.name = 'Finance';
+```
+
+
+In this example, you describe what you want (names of employees in the Finance department) without specifying how to achieve it. The SQL engine is responsible for determining the best way to execute the query and retrieve the desired data.
+
+Here's an example of imperative SQL:
+
+```sql
+-- Imperative SQL: Insert a new employee into the 'employees' table
+INSERT INTO employees (name, age, department_id)
+VALUES ('John Doe', 30, 1);
+
+-- Imperative SQL: Update an employee's name in the 'employees' table
+UPDATE employees
+SET name = 'Jane Doe'
+WHERE id = 1;
+
+-- Imperative SQL: Delete an employee from the 'employees' table
+DELETE FROM employees
+WHERE id = 1;
+```
+
+In these imperative SQL examples, you are specifying the actions to perform on the data: insert a new employee, update an existing employee's name, and delete an employee. The SQL engine performs these actions directly on the data without having to determine how to achieve the desired outcome.
+
+Note that the distinction between declarative and imperative SQL is not strict, and the terms are not always used in the same way by everyone. The examples provided here are meant to illustrate the general idea of declarative SQL as focusing on the desired outcome without specifying how to achieve it, whereas imperative SQL focuses on the actions to be performed on the data.
+
