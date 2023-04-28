@@ -76,6 +76,77 @@ In this example, each row in the table represents an entry in the replication lo
 
 In a leader-based replication system, the leader node would maintain this log and send updates to follower nodes, which would then apply the changes in the order they appear in the log to ensure data consistency across the system.
 
+**The book covers a few types of replicaton logs: **
+
+
+1. **Statement-based replication:** MySQL uses statement-based replication in its earlier versions. In this method, the SQL statements executed on the primary (leader) node are recorded and replicated to the secondary (follower) nodes.
+
+Example of a statement-based replication log:
+```
+Log Index | SQL Statement
+-------------------------
+1         | INSERT INTO users (id, name) VALUES (1, 'Alice')
+2         | UPDATE users SET name = 'Alicia' WHERE id = 1
+3         | DELETE FROM users WHERE id = 2
+```
+
+2. **Write-ahead log (WAL) shipping:** PostgreSQL utilizes WAL shipping for replication. The primary node's write-ahead log is sent to the secondary nodes, which then replay the log to apply the changes.
+
+Example of a WAL-based replication log (simplified):
+```
+Log Index | Operation | Block | Offset | Data
+---------------------------------------------
+1         | INSERT    | 5     | 1024   | {record_data}
+2         | UPDATE    | 5     | 1024   | {new_record_data}
+3         | DELETE    | 5     | 1024   | 
+```
+
+3. **Logical (row-based) log replication:** MySQL, starting from version 5.1, supports row-based replication in addition to statement-based replication. In this method, the changes made to individual rows in the primary node's data are recorded and replicated.
+
+Example of a row-based replication log:
+```
+Log Index | Operation | Table | Row Data
+-----------------------------------------
+1         | INSERT    | users | {id: 1, name: 'Alice'}
+2         | UPDATE    | users | {id: 1, name: 'Alicia'}
+3         | DELETE    | users | {id: 2}
+```
+
+4. **Trigger-based replication:** Trigger-based replication can be implemented in various database systems, including MySQL and PostgreSQL, using custom triggers to capture and propagate changes.
+
+Example of a trigger-based replication log (simplified):
+```
+Log Index | Trigger Event | Table | Old Row Data | New Row Data
+---------------------------------------------------------------
+1         | INSERT        | users |              | {id: 1, name: 'Alice'}
+2         | UPDATE        | users | {id: 1, name: 'Alice'}  | {id: 1, name: 'Alicia'}
+3         | DELETE        | users | {id: 2}      | 
+```
+
+When to use each one? The book doesn't cover that so here is a brief summary: 
+
+1. Statement-based replication:
+- Simple applications where the majority of SQL statements are deterministic and unlikely to cause inconsistency issues between replicas.
+- Systems where minimizing the amount of data transferred between nodes is essential, as only SQL statements are replicated rather than the actual data changes.
+- Environments where compatibility with older versions of MySQL is required.
+
+2. Write-ahead log (WAL) shipping:
+- Systems that require strong consistency between replicas and prioritize data durability, as WAL shipping ensures that all changes are applied in the same order on each replica.
+- PostgreSQL-based systems, since WAL shipping is the native replication method in PostgreSQL.
+- Systems where the ability to create replicas with minimal impact on the primary node's performance is crucial, as the primary node's WAL can be shipped and replayed on secondary nodes with relatively low overhead.
+
+3. Logical (row-based) log replication:
+- Applications where non-deterministic operations or functions are common, as row-based replication captures the actual data changes rather than the SQL statements, avoiding potential inconsistencies.
+- Systems where performance is a priority, as row-based replication reduces the need to re-execute SQL statements on the secondary nodes.
+- When cross-platform compatibility is essential, as row-based replication is more portable across different database systems than WAL shipping.
+
+4. Trigger-based replication:
+- Custom replication solutions that need to support specific application logic or business requirements, as triggers can be tailored to capture and propagate only the desired changes.
+- Applications that require real-time processing or transformation of data during replication, as triggers can be used to apply additional logic before propagating changes to secondary nodes.
+- Systems using heterogeneous databases, where a standardized replication method is not available or not feasible to implement, as trigger-based replication can be implemented in various database systems, including MySQL and PostgreSQL.
+
+The choice of replication method depends on the specific requirements and constraints of the distributed system being designed, such as consistency, performance, compatibility, and complexity.
+
 
 ## 5.6 Problems with Replication Lag: 
 
