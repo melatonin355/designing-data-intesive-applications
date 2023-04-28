@@ -85,3 +85,11 @@ In a leader-based replication system, the leader node would maintain this log an
 5.9 Consistent Prefix Reads: The chapter introduces consistent prefix reads, a guarantee that ensures clients will always see a consistent and ordered view of the data.
 
 5.10 Solutions for Replication Lag: Finally, the chapter presents various techniques for addressing replication lag and improving data consistency, such as read-after-write consistency, quorum reads and writes, and version vectors.
+
+1. Read-after-write consistency: This approach ensures that when a client writes data to the system, it is only acknowledged once the write is propagated to a certain number of replicas. This guarantees that subsequent reads by the same client will return the latest written data. However, it may introduce latency during write operations, as the system needs to wait for the data to propagate.
+
+2. Quorum reads and writes: Quorum-based systems rely on a consensus algorithm to determine the number of replicas that must acknowledge a read or write operation before it is considered successful. A common approach is to use a majority quorum, where an operation must be acknowledged by more than half of the replicas to succeed. This method helps maintain consistency, as it is less likely that an outdated replica will be used for read operations. However, it may introduce latency, as the system needs to wait for multiple acknowledgments.
+
+3. Version vectors: Version vectors are data structures that keep track of the version history of each replica. They allow the system to detect and resolve conflicts arising from concurrent updates to the same data. By maintaining version information for each replica, the system can determine which replica has the most up-to-date data and use that replica for read operations. This approach can help address replication lag by ensuring that clients always read the latest data, even in the presence of network delays or other issues.
+
+Each of these techniques comes with its own trade-offs in terms of performance, latency, and complexity. The choice of which method to use depends on the specific requirements and characteristics of the distributed system being designed.
