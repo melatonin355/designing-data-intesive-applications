@@ -33,15 +33,16 @@
 
 Chapter 5 of "Designing Data-Intensive Applications" is titled "Replication" and provides an in-depth exploration of various replication techniques used to improve the availability, performance, and fault tolerance of distributed systems. The chapter covers the following topics:
 
-5.1 Leaders and Followers: The chapter begins by introducing the concept of leader-based replication, where one node is responsible for accepting writes and replicating changes to the followers to ensure data consistency.
+# 5.1 Leaders and Followers:
+The chapter begins by introducing the concept of leader-based replication, where one node is responsible for accepting writes and replicating changes to the followers to ensure data consistency.
 
-5.2 Synchronous Versus Asynchronous Replication: This section discusses the trade-offs between synchronous and asynchronous replication, highlighting the impact on performance, data consistency, and fault tolerance.
+**5.2 Synchronous Versus Asynchronous Replication:** This section discusses the trade-offs between synchronous and asynchronous replication, highlighting the impact on performance, data consistency, and fault tolerance.
 
-5.3 Setting Up New Followers: The process of adding new follower nodes to the system is explored, along with the challenges of ensuring that new nodes have a consistent view of the data.
+**5.3 Setting Up New Followers:** The process of adding new follower nodes to the system is explored, along with the challenges of ensuring that new nodes have a consistent view of the data.
 
-5.4 Handling Node Outages: This section discusses strategies for managing node failures, such as failover and load balancing, to ensure system availability and data durability.
+**5.4 Handling Node Outages:** This section discusses strategies for managing node failures, such as failover and load balancing, to ensure system availability and data durability.
 
-5.5 Implementation of Replication Logs: The chapter delves into the implementation details of replication logs, which serve as the foundation for leader-based replication.
+**5.5 Implementation of Replication Logs:** The chapter delves into the implementation details of replication logs, which serve as the foundation for leader-based replication.
 
 
 ```
@@ -76,15 +77,17 @@ In this example, each row in the table represents an entry in the replication lo
 In a leader-based replication system, the leader node would maintain this log and send updates to follower nodes, which would then apply the changes in the order they appear in the log to ensure data consistency across the system.
 
 
-5.6 Problems with Replication Lag: The potential issues associated with replication lag are examined, including inconsistencies, stale reads, and constraint violations.
+## 5.6 Problems with Replication Lag: 
 
-5.7 Reading Your Own Writes: Techniques to ensure that clients can read their own writes in a distributed system, even in the presence of replication lag, are presented.
+The potential issues associated with replication lag are examined, including inconsistencies, stale reads, and constraint violations.
 
-5.8 Monotonic Reads: This section covers the concept of monotonic reads, which provide guarantees about the ordering of read operations to prevent clients from observing inconsistent data.
+**5.7 Reading Your Own Writes:** Techniques to ensure that clients can read their own writes in a distributed system, even in the presence of replication lag, are presented.
 
-5.9 Consistent Prefix Reads: The chapter introduces consistent prefix reads, a guarantee that ensures clients will always see a consistent and ordered view of the data.
+**5.8 Monotonic Reads:** This section covers the concept of monotonic reads, which provide guarantees about the ordering of read operations to prevent clients from observing inconsistent data.
 
-5.10 Solutions for Replication Lag: Finally, the chapter presents various techniques for addressing replication lag and improving data consistency, such as read-after-write consistency, quorum reads and writes, and version vectors.
+**5.9 Consistent Prefix Reads:** The chapter introduces consistent prefix reads, a guarantee that ensures clients will always see a consistent and ordered view of the data.
+
+**5.10 Solutions for Replication Lag:** Finally, the chapter presents various techniques for addressing replication lag and improving data consistency, such as read-after-write consistency, quorum reads and writes, and version vectors.
 
 1. Read-after-write consistency: This approach ensures that when a client writes data to the system, it is only acknowledged once the write is propagated to a certain number of replicas. This guarantees that subsequent reads by the same client will return the latest written data. However, it may introduce latency during write operations, as the system needs to wait for the data to propagate.
 
