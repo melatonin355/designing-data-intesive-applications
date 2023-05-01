@@ -191,7 +191,7 @@ Uses custom triggers to capture and propagate changes. Ideal for **custom replic
 
 The choice of replication method depends on system requirements and constraints, such as **consistency, performance, compatibility, and complexity**.
 
-## 5.6 Problems with Replication Lag: 
+## **5.6 Problems with Replication Lag:**
 
 The potential issues associated with replication lag are examined, including inconsistencies, stale reads, and constraint violations.
 
