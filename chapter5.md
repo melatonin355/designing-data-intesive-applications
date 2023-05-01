@@ -3,162 +3,213 @@
 
 ### Chapter 5: Replication
 
-- 5.1 Leaders and Followers ........................................................... 151
-- 5.2 Synchronous Versus Asynchronous Replication ............................. 153
-- 5.3 Setting Up New Followers .......................................................... 155
-- 5.4 Handling Node Outages ............................................................ 156
-- 5.5 Implementation of Replication Logs ............................................. 158
-- 5.6 Problems with Replication Lag .................................................... 161
-- 5.7 Reading Your Own Writes .......................................................... 162
-- 5.8 Monotonic Reads ................................................................... 164
-- 5.9 Consistent Prefix Reads ............................................................. 165
-- 5.10 Solutions for Replication Lag .................................................... 167
+
+- [5.1 Leaders and Followers](#51-leaders-and-followers)
+- [5.2 Synchronous Versus Asynchronous Replication](#52-synchronous-versus-asynchronous-replication)
+- [5.3 Setting Up New Followers](#53-setting-up-new-followers)
+- [5.4 Handling Node Outages](#54-handling-node-outages)
+- [5.5 Implementation of Replication Logs](#55-implementation-of-replication-logs)
+- [5.6 Problems with Replication Lag](#56-problems-with-replication-lag)
+- [5.7 Reading Your Own Writes](#57-reading-your-own-writes)
+- [5.8 Monotonic Reads](#58-monotonic-reads)
+- [5.9 Consistent Prefix Reads](#59-consistent-prefix-reads)
+- [5.10 Solutions for Replication Lag](#510-solutions-for-replication-lag)
 
 
+## Cliff Notes: Replication in Software Engineering
 
-- 5.11 Multi-Leader Replication .......................................................... 168
-  - 5.11.1 Use Cases for Multi-Leader Replication ........................... 168
-  - 5.11.2 Handling Write Conflicts ................................................ 171
-  - 5.11.3 Multi-Leader Replication Topologies ................................ 175
-- 5.12 Leaderless Replication .............................................................. 177
-  - 5.12.1 Writing to the Database When a Node Is Down .................. 177
-  - 5.12.2 Limitations of Quorum Consistency .................................. 181
-  - 5.12.3 Sloppy Quorums and Hinted Handoff ................................ 183
-  - 5.12.4 Detecting Concurrent Writes .............................................. 184
-- 5.13 Summary .............................................................................. 192
+Cliff Notes: Replication in Software Engineering
+
+1. **Replication**: Keeping a copy of the same data on multiple machines connected via a network. Reasons for replication:
+   a. Reduce latency by keeping data geographically close to users
+   b. Increase availability by allowing the system to work despite part failures
+   c. Increase read throughput by scaling out the number of machines serving read queries
+
+2. Assumptions: Each machine can hold a copy of the entire dataset. Chapter 6 discusses **partitioning** for larger datasets.
+
+3. Replication challenges arise when handling changes to replicated data.
+
+4. Three popular replication algorithms:
+   a. **Single-leader**
+   b. **Multi-leader**
+   c. **Leaderless replication**
+   * Each has pros and cons, which are examined in detail.
+
+5. Replication trade-offs:
+   a. **Synchronous** vs. **asynchronous replication**
+   b. Handling **failed replicas**
+   * These are often database configuration options with similar principles across implementations.
+
+6. Replication principles haven't changed much since the 1970s due to fundamental network constraints.
+
+7. Developers often misunderstand issues such as **eventual consistency**. The chapter also discusses **read-your-writes** and **monotonic reads guarantees**.
 
 
-## 5.1 - 5.10
+## Single Leader Diagram
+<pre>
+        +---------+
+        |         |
+        |  User   |
+    [1] O<--------| +Picture|
+       /|\        |         |
+        |         +---------+
+        |             |
+        |             v
+        |
+    [2] +----------------------+
+        |                      |
+        | Write/Read Request   |
+        |                      |
+        +----------------------+
+                   |
+                   v
+              +-------+
+              |       |
+              | Change|
+              +-------+
+              /       \
+             /         \
+            /           \
+[3]+------------+  +---------------+  +---------------+
+   | Leader     |->| Follower      |->| Follower      |
+   | Replica    |  | Replica 1     |  | Replica 2     |
+   +------------+  +---------------+  +---------------+
+                        \
+                         \
+                          v
+[4]                      O  +-----------+
+                         /|\ |           |
+                          |  | End User  |
+                          |  | (Read     |
+                          |  | Replica)  |
+                          +-----------+
 
+</pre>
 
-Chapter 5 of "Designing Data-Intensive Applications" is titled "Replication" and provides an in-depth exploration of various replication techniques used to improve the availability, performance, and fault tolerance of distributed systems. The chapter covers the following topics:
+1. **User uploads a picture**: The user adds a picture to their data.
+2. **Write/Read Request**: The user sends a write request to the Leader Replica to update the data with the new picture.
+3. **Change propagation**: The Leader Replica processes the change and propagates it to the Follower Replicas (Follower Replica 1 and Follower Replica 2).
+4. **End User reads data**: The end user reads the updated data, including the newly added picture, from the selected Follower Replica (in this case, Follower Replica 1).
 
 # 5.1 Leaders and Followers:
 The chapter begins by introducing the concept of leader-based replication, where one node is responsible for accepting writes and replicating changes to the followers to ensure data consistency.
 
-**5.2 Synchronous Versus Asynchronous Replication:** This section discusses the trade-offs between synchronous and asynchronous replication, highlighting the impact on performance, data consistency, and fault tolerance.
-
-**5.3 Setting Up New Followers:** The process of adding new follower nodes to the system is explored, along with the challenges of ensuring that new nodes have a consistent view of the data.
-
-**5.4 Handling Node Outages:** This section discusses strategies for managing node failures, such as failover and load balancing, to ensure system availability and data durability.
-
-**5.5 Implementation of Replication Logs:** The chapter delves into the implementation details of replication logs, which serve as the foundation for leader-based replication.
+## 5.2 Synchronous Versus Asynchronous Replication:
 
 
-```
+- **Synchronous replication**:
+  - Strong consistency across replicas.
+  - Higher latency for write operations.
+  - Lower fault tolerance.
+  
+- **Asynchronous replication**:
+  - Lower latency for write operations.
+  - Weaker consistency across replicas.
+  - Higher fault tolerance.
+
+The choice between synchronous and asynchronous replication depends on the specific requirements of the system and the desired balance between consistency, performance, and fault tolerance.
+
+## 5.3 Setting Up New Followers:
+
+
+1. **Snapshot**: Take a consistent snapshot of the leader's database without locking the entire database.
+2. **Copy**: Transfer the snapshot to the new follower node.
+3. **Connect and Request**: The follower connects to the leader and requests data changes since the snapshot, using a specific position in the leader's replication log.
+4. **Catch Up**: The follower processes the backlog of data changes and continues to process new changes from the leader as they occur.
+
+The practical steps for setting up a follower vary by database. Some systems automate the process, while others require manual execution by an administrator.
+
+## **5.4 Handling Node Outages:**
+
+1. **Follower failure: Catch-up recovery**: Followers can recover from a crash or temporary network interruption using their local log of data changes. They reconnect to the leader and request all data changes that occurred during their disconnection.
+2. **Leader failure: Failover**: Promoting a follower to be the new leader, reconfiguring clients to send writes to the new leader, and ensuring other followers consume data changes from the new leader. Failover can be manual or automatic, and involves:
+   - Determining leader failure: Typically using a timeout.
+   - Choosing a new leader: Through an election process or appointing a new leader.
+   - Reconfiguring the system: Clients send write requests to the new leader, and the old leader must become a follower recognizing the new leader.
+3. **Failover challenges**: Asynchronous replication can result in unreplicated writes or data loss; discarding writes can lead to inconsistency; split-brain scenarios can cause data loss or corruption; and choosing the right timeout for leader failure detection can impact recovery time and risk unnecessary failovers.
+
+Some operations teams prefer manual failovers due to these challenges. These issues are fundamental problems in distributed systems and are discussed in greater depth in Chapters 8 and 9.
+
+## **5.5 Implementation of Replication Logs:** 
+
+Replication logs serve as the foundation for leader-based replication in distributed systems, ensuring data consistency across nodes. This summary is based on the book "Designing Data-Intensive Applications" and is tailored for software engineers.
+
+<pre>
 +-----------+       +-----------+       +-----------+
-|  Leader   | --->  | Follower  | --->  | Follower  |
+|  Leader   | ----> | Follower  | ----> | Follower  |
 |           |       |           |       |           |
-+-----------+       +-----------+       +-----------+
-     ||                 ||                 ||
-     \/                 \/                 \/
-+-----------+       +-----------+       +-----------+
-| Replication|       | Replication|       | Replication|
-|    Log     |       |    Log     |       |    Log     |
-+-----------+       +-----------+       +-----------+
-```
++----+------+       +-----+-----+       +-----+-----+
+     |                   |                   |
+     v                   v                   v
++------------+       +------------+       +------------+
+| Replication |       | Replication |       | Replication |
+|     Log     |       |     Log     |       |     Log     |
++------------+       +------------+       +------------+
+</pre>
 
-In this illustration, the "Leader" node accepts write requests and maintains a replication log. The "Follower" nodes receive updates from the replication log to ensure data consistency across the distributed system.
+Replication logs are sequential records of updates in a distributed system. The book covers four types of replication logs:
 
-A replication log is a sequential record of all updates made to the data in a distributed system. Each entry in the log corresponds to a specific operation, such as insert, update, or delete, along with any necessary metadata, such as timestamps or version numbers. Here's an example of a simplified replication log for a key-value store:
-
-```
-Log Index | Operation |   Key    | Value  | Timestamp
-------------------------------------------------------
-       1  |  INSERT   |  "user1" | "John" | 1001
-       2  |  UPDATE   |  "user1" | "Jane" | 1005
-       3  |  INSERT   |  "user2" | "Mark" | 1010
-       4  |  DELETE   |  "user1" |        | 1015
-       5  |  INSERT   |  "user3" | "Lucy" | 1020
-```
-
-In this example, each row in the table represents an entry in the replication log. The "Log Index" column indicates the position of the entry in the log, while the "Operation" column specifies the type of operation performed (INSERT, UPDATE, or DELETE). The "Key" and "Value" columns represent the key-value pair being modified, and the "Timestamp" column provides a timestamp for the operation.
-
-In a leader-based replication system, the leader node would maintain this log and send updates to follower nodes, which would then apply the changes in the order they appear in the log to ensure data consistency across the system.
-
-**The book covers a few types of replicaton logs: **
-
-
-1. **Statement-based replication:** MySQL uses statement-based replication in its earlier versions. In this method, the SQL statements executed on the primary (leader) node are recorded and replicated to the secondary (follower) nodes.
-
-Example of a statement-based replication log:
-```
+1. **Statement-based replication:**
+<pre>
 Log Index | SQL Statement
 -------------------------
 1         | INSERT INTO users (id, name) VALUES (1, 'Alice')
 2         | UPDATE users SET name = 'Alicia' WHERE id = 1
 3         | DELETE FROM users WHERE id = 2
-```
+</pre>
+Records SQL statements executed on the primary node and replicates them to secondary nodes. Suitable for **simple applications** with deterministic SQL statements and **minimal data transfer** requirements.
 
-2. **Write-ahead log (WAL) shipping:** PostgreSQL utilizes WAL shipping for replication. The primary node's write-ahead log is sent to the secondary nodes, which then replay the log to apply the changes.
-
-Example of a WAL-based replication log (simplified):
-```
+2. **Write-ahead log (WAL) shipping:**
+<pre>
 Log Index | Operation | Block | Offset | Data
 ---------------------------------------------
 1         | INSERT    | 5     | 1024   | {record_data}
 2         | UPDATE    | 5     | 1024   | {new_record_data}
-3         | DELETE    | 5     | 1024   | 
-```
+3         | DELETE    | 5     | 1024   |
+</pre>
+Sends the primary node's WAL to secondary nodes, which replay the log to apply changes. Ensures **strong consistency** and **data durability**, ideal for PostgreSQL-based systems and those prioritizing minimal impact on primary node performance.
 
-3. **Logical (row-based) log replication:** MySQL, starting from version 5.1, supports row-based replication in addition to statement-based replication. In this method, the changes made to individual rows in the primary node's data are recorded and replicated.
-
-Example of a row-based replication log:
-```
+3. **Logical (row-based) log replication:**
+<pre>
 Log Index | Operation | Table | Row Data
 -----------------------------------------
 1         | INSERT    | users | {id: 1, name: 'Alice'}
 2         | UPDATE    | users | {id: 1, name: 'Alicia'}
 3         | DELETE    | users | {id: 2}
-```
+</pre>
+Captures changes made to individual rows in the primary node's data. Suitable for applications with **non-deterministic operations**, prioritizing **performance**, and requiring **cross-platform compatibility**.
 
-4. **Trigger-based replication:** Trigger-based replication can be implemented in various database systems, including MySQL and PostgreSQL, using custom triggers to capture and propagate changes.
-
-Example of a trigger-based replication log (simplified):
-```
+4. **Trigger-based replication:**
+<pre>
 Log Index | Trigger Event | Table | Old Row Data | New Row Data
 ---------------------------------------------------------------
 1         | INSERT        | users |              | {id: 1, name: 'Alice'}
 2         | UPDATE        | users | {id: 1, name: 'Alice'}  | {id: 1, name: 'Alicia'}
-3         | DELETE        | users | {id: 2}      | 
-```
+3         | DELETE        | users | {id: 2}      |
+</pre>
+Uses custom triggers to capture and propagate changes. Ideal for **custom replication solutions**, **real-time data processing or transformation**, and systems with heterogeneous databases.
 
-When to use each one? The book doesn't cover that so here is a brief summary: 
-
-1. Statement-based replication:
-- Simple applications where the majority of SQL statements are deterministic and unlikely to cause inconsistency issues between replicas.
-- Systems where minimizing the amount of data transferred between nodes is essential, as only SQL statements are replicated rather than the actual data changes.
-- Environments where compatibility with older versions of MySQL is required.
-
-2. Write-ahead log (WAL) shipping:
-- Systems that require strong consistency between replicas and prioritize data durability, as WAL shipping ensures that all changes are applied in the same order on each replica.
-- PostgreSQL-based systems, since WAL shipping is the native replication method in PostgreSQL.
-- Systems where the ability to create replicas with minimal impact on the primary node's performance is crucial, as the primary node's WAL can be shipped and replayed on secondary nodes with relatively low overhead.
-
-3. Logical (row-based) log replication:
-- Applications where non-deterministic operations or functions are common, as row-based replication captures the actual data changes rather than the SQL statements, avoiding potential inconsistencies.
-- Systems where performance is a priority, as row-based replication reduces the need to re-execute SQL statements on the secondary nodes.
-- When cross-platform compatibility is essential, as row-based replication is more portable across different database systems than WAL shipping.
-
-4. Trigger-based replication:
-- Custom replication solutions that need to support specific application logic or business requirements, as triggers can be tailored to capture and propagate only the desired changes.
-- Applications that require real-time processing or transformation of data during replication, as triggers can be used to apply additional logic before propagating changes to secondary nodes.
-- Systems using heterogeneous databases, where a standardized replication method is not available or not feasible to implement, as trigger-based replication can be implemented in various database systems, including MySQL and PostgreSQL.
-
-The choice of replication method depends on the specific requirements and constraints of the distributed system being designed, such as consistency, performance, compatibility, and complexity.
-
+The choice of replication method depends on system requirements and constraints, such as **consistency, performance, compatibility, and complexity**.
 
 ## 5.6 Problems with Replication Lag: 
 
 The potential issues associated with replication lag are examined, including inconsistencies, stale reads, and constraint violations.
 
-**5.7 Reading Your Own Writes:** Techniques to ensure that clients can read their own writes in a distributed system, even in the presence of replication lag, are presented.
+## ** 5.7 Reading Your Own Writes:** 
 
-**5.8 Monotonic Reads:** This section covers the concept of monotonic reads, which provide guarantees about the ordering of read operations to prevent clients from observing inconsistent data.
+Techniques to ensure that clients can read their own writes in a distributed system, even in the presence of replication lag, are presented.
 
-**5.9 Consistent Prefix Reads:** The chapter introduces consistent prefix reads, a guarantee that ensures clients will always see a consistent and ordered view of the data.
+## **5.8 Monotonic Reads:** 
 
-**5.10 Solutions for Replication Lag:** Finally, the chapter presents various techniques for addressing replication lag and improving data consistency, such as read-after-write consistency, quorum reads and writes, and version vectors.
+This section covers the concept of monotonic reads, which provide guarantees about the ordering of read operations to prevent clients from observing inconsistent data.
+
+##  **5.9 Consistent Prefix Reads:** 
+
+The chapter introduces consistent prefix reads, a guarantee that ensures clients will always see a consistent and ordered view of the data.
+
+##  **5.10 Solutions for Replication Lag:** 
+
+The chapter presents various techniques for addressing replication lag and improving data consistency, such as read-after-write consistency, quorum reads and writes, and version vectors.
 
 1. Read-after-write consistency: This approach ensures that when a client writes data to the system, it is only acknowledged once the write is propagated to a certain number of replicas. This guarantees that subsequent reads by the same client will return the latest written data. However, it may introduce latency during write operations, as the system needs to wait for the data to propagate.
 
