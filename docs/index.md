@@ -1,7 +1,7 @@
 # Designing Data-Intensive Applications
 
 
-Alright, listen up bookworms! If you're part of the Recurse Center book club, I've got some juicy notes for you all about that DDIA book. You know, the one about data-intensive applications? Yeah, that's the one. So, get your reading glasses on and your thinking caps ready, because we're about to explore the wonderful world of data in a fun and informative way. Let's go!
+Listen up bookworms! If you're part of the Recurse Center book club, I've got some juicy notes for you all about that DDIA book. You know, the one about data-intensive applications? Yeah, that's the one. So, get your reading glasses on and your thinking caps ready, because we're about to explore the wonderful world of data in a fun and informative way. Let's go!
  
 "Designing Data-Intensive Applications" by Martin Kleppmann is a comprehensive guide to the principles, challenges, and trade-offs involved in building data-intensive systems. The book is divided into three parts, covering the foundations of data systems, data storage and retrieval, and distributed systems. Here's a summary of each chapter:
 
