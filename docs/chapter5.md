@@ -5,15 +5,7 @@
 
 ## Big Picture
 
-<p align="center">
-  <img src="images/jj3A5N8.png" width="400">
-  <br/>
-</p>
-
-[Picture Source](https://github.com/donnemartin/system-design-primer)
-- https://github.com/donnemartin/system-design-primer#master-slave-replication
-
-- 
+- https://github.com/donnemartin/system-design-primer#master-slave-replication 
 
 
 ### Chapter 5: Replication

@@ -1,63 +1,37 @@
-# Designing Data-Intensive Applications
 
-- https://docs.google.com/spreadsheets/d/1ra_xR4X9DEkRFnSiHwZqBxMdJgFXX9zyZRdggBcrHAM/edit#gid=0
- 
-"Designing Data-Intensive Applications" by Martin Kleppmann is a comprehensive guide to the principles, challenges, and trade-offs involved in building data-intensive systems. The book is divided into three parts, covering the foundations of data systems, data storage and retrieval, and distributed systems. Here's a summary of each chapter:
+# Designing data intensive Applications mkdocs
 
-Part I: Foundations of Data Systems 
 
-[Chapter 1: Reliable, Scalable, and Maintainable Applications](chapter1.md)
 
--   Introduces the three key attributes of good data systems: reliability, scalability, and maintainability
--   Discusses the trade-offs and challenges involved in achieving these attributes
+## Prerequisites
 
-[Chapter 2: Data Models and Query Languages](chapter2.md)
+To run this documentation site on your local machine, you will need to have the following software installed:
 
--   Discusses the different data models used in data systems, such as relational, document-oriented, and graph databases
--   Introduces query languages used to retrieve data from these models
+- Python 3
+- pip
 
-Chapter 3: Storage and Retrieval
+## Installation
 
--   Discusses different types of storage systems, such as file systems, relational databases, and NoSQL databases
--   Introduces the concept of indexing and its importance in data retrieval
+1. Clone the repository to your local machine.
+2. Navigate to the root directory of the repository in your command prompt or terminal.
+3. Install the required packages by running the following command:
 
-Chapter 4: Encoding and Evolution
+   ```
+   pip install -r requirements.txt
+   ```
 
--   Discusses the importance of data encoding and the challenges of evolving data formats over time
--   Introduces different encoding formats, such as JSON, Protocol Buffers, and Avro
+   This will install MkDocs and any necessary dependencies.
 
-[Data Chapter 5: Replication](chapter5.md)
+## Usage
 
--   Discusses the importance of replication for availability, fault tolerance, and scalability
--   Introduces different replication strategies, such as single-leader and multi-leader replication
+1. Once the installation is complete, you can start a local server to view the documentation by running the following command:
 
-Chapter 6: Partitioning
+   ```
+   mkdocs serve
+   ```
 
--   Discusses the challenges of partitioning data in a distributed system
--   Introduces different partitioning strategies, such as range partitioning and hash partitioning
+   This will start a local server that you can access in your web browser at `http://localhost:8000`.
 
-Chapter 7: Transactions
+2. Make any necessary changes to the documentation files in the `docs` directory, and the changes will be automatically reflected in your local server.
 
--   Discusses the importance of transactions for data consistency in a distributed system
--   Introduces different transaction models, such as two-phase commit and optimistic concurrency control
-
-Chapter 8: The Trouble with Distributed Systems
-
--   Discusses the challenges and trade-offs involved in designing and operating distributed systems, such as network partitions and consistency trade-offs
-
-Part III: Derived Data Chapter 9: Batch Processing
-
--   Introduces batch processing and the challenges of processing large amounts of data efficiently
--   Introduces batch processing frameworks, such as Hadoop and Spark
-
-Chapter 10: Stream Processing
-
--   Discusses the importance of stream processing for real-time data processing
--   Introduces stream processing frameworks, such as Apache Kafka and Apache Flink
-
-Chapter 11: The Future of Data Systems
-
--   Discusses the emerging trends in data systems, such as serverless computing and machine learning
--   Discusses the challenges and opportunities presented by these trends
-
-Overall, "Designing Data-Intensive Applications" provides a comprehensive overview of the principles, challenges, and trade-offs involved in building data-intensive systems. The book is a must-read for anyone involved in designing, building, or operating data systems.
+That's it! Now you can view and edit the documentation for our project on your local machine. If you have any questions or issues, please don't hesitate to reach out to us. Happy documenting!
