@@ -5,7 +5,7 @@ on:
     branches:
       - main
 env:
-  MY_SECRET: ${{ secrets.test }}
+  GITHUB_TOKEN: ${{ secrets.test }}
 
 jobs:
   build-deploy:
