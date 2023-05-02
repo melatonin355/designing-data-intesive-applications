@@ -3,7 +3,7 @@ site_name: Designing Data Intesive Application Notes
 theme:
     name: material
 nav:
-    - Home: index.md
+    - Introduction: index.md
     - Chapter 1: chapter1.md
-    - Chapter 2: chapter2.md
-    - Chapter 3: chapter5.md
+    - Chapter 2 Data Models: chapter2.md
+    - Chapter 5 Replication: chapter5.md
