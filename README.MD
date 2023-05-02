@@ -11,7 +11,7 @@ Part I: Foundations of Data Systems
 -   Introduces the three key attributes of good data systems: reliability, scalability, and maintainability
 -   Discusses the trade-offs and challenges involved in achieving these attributes
 
-Chapter 2: Data Models and Query Languages
+[Chapter 2: Data Models and Query Languages](chapter2.md)
 
 -   Discusses the different data models used in data systems, such as relational, document-oriented, and graph databases
 -   Introduces query languages used to retrieve data from these models
@@ -26,7 +26,7 @@ Chapter 4: Encoding and Evolution
 -   Discusses the importance of data encoding and the challenges of evolving data formats over time
 -   Introduces different encoding formats, such as JSON, Protocol Buffers, and Avro
 
-Part II: Distributed Data Chapter 5: Replication
+[Data Chapter 5: Replication](chapter5.md)
 
 -   Discusses the importance of replication for availability, fault tolerance, and scalability
 -   Introduces different replication strategies, such as single-leader and multi-leader replication
