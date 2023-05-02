@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Chapter1 - Designing Data Intesive Application Notes</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Chapter1";
+        var mkdocs_page_input_path = "chapter1.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/python.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Designing Data Intesive Application Notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Designing Data-Intensive Applications</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Chapter1</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../chapter2/">Chapter 2</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../chapter5/">Chapter5</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Designing Data Intesive Application Notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Chapter1</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <ol>
+<li>Reliable, Scalable, and Maintainable Applications</li>
+</ol>
+<h2 id="nonfunctional">NonFunctional</h2>
+<p>Nonfunctional requirements include qualities such as performance, reliability, availability, scalability, maintainability, security, usability, and many others. These attributes are often critical for the success of a system and should be considered and prioritized alongside the system's functional requirements.</p>
+<p>Performance, for example, refers to the system's ability to respond to user requests within an acceptable time frame. Reliability refers to the system's ability to function correctly and consistently over time. Scalability refers to the system's ability to handle increasing amounts of work or traffic without a decrease in performance. Maintainability refers to the ease with which the system can be maintained, updated, or modified over time.</p>
+<p>Usability refers to the ease with which users can interact with the system and accomplish their tasks. Security refers to the system's ability to protect against unauthorized access or attacks.</p>
+<p>Nonfunctional requirements are often measured and evaluated using specific metrics or benchmarks, such as response time, availability percentage, or defect rate. These metrics can be used to track and monitor the system's performance over time and identify areas for improvement.</p>
+<p>Overall, nonfunctional requirements are an important aspect of system design and should be considered and prioritized alongside the system's functional requirements.</p>
+<h2 id="reliability">Reliability</h2>
+<p>In the context of building data-intensive applications, reliability refers to the ability of a system to operate correctly even in the presence of faults. Chapter 1 of "Designing Data-Intensive Applications" by Martin Kleppmann provides an overview of the techniques and technologies used to achieve reliability in data systems.</p>
+<p>The chapter discusses different types of faults that can occur in a system, such as hardware faults, software faults, and human errors. It introduces the concept of fault tolerance, which involves designing a system to continue functioning even when faults occur.</p>
+<p>One technique for achieving fault tolerance is replication, which involves creating multiple copies of data or processes and distributing them across multiple machines. The chapter discusses different replication strategies, such as single-leader replication and multi-leader replication. It also introduces the concept of quorums, which are used to ensure consistency between replicas.</p>
+<p>The chapter also discusses other techniques for achieving reliability, such as redundancy, isolation, and versioning. It introduces the CAP theorem, which states that it is impossible for a distributed system to simultaneously provide consistency, availability, and partition tolerance. The chapter explains the trade-offs involved in choosing between these attributes and discusses different strategies for balancing them.</p>
+<p>Overall, the Reliable section of "Designing Data-Intensive Applications" emphasizes the importance of reliability in data systems and introduces techniques for achieving fault tolerance and consistency. The section lays the foundation for the rest of the book, which goes into more detail on the different technologies and architectures used to build reliable, fault-tolerant data systems.</p>
+<h2 id="scalability">scalability</h2>
+<p>In the context of building data-intensive applications, scalability refers to the ability of a system to handle increasing amounts of work or traffic without a decrease in performance. Chapter 1 of "Designing Data-Intensive Applications" by Martin Kleppmann provides an overview of the techniques and technologies used to achieve scalability in data systems.</p>
+<p>The chapter discusses the challenges of achieving scalability, such as the need for parallelism, load balancing, and partitioning. It introduces the concept of vertical scaling, which involves increasing the resources of a single machine to handle more work, and horizontal scaling, which involves distributing work across multiple machines.</p>
+<p>The chapter discusses different types of partitioning strategies, such as range partitioning and hash partitioning. It explains how partitioning can help to achieve scalability by allowing data to be distributed across multiple machines and processed in parallel.</p>
+<p>The chapter also introduces the concept of load balancing, which involves distributing work evenly across multiple machines to avoid overloading any one machine. It discusses different load balancing strategies, such as round-robin and least connections, and explains how load balancing can help to achieve scalability and improve performance.</p>
+<p>Overall, the Scalability section of "Designing Data-Intensive Applications" emphasizes the importance of scalability in data systems and introduces techniques for achieving it. The section lays the foundation for the rest of the book, which goes into more detail on the different technologies and architectures used to build scalable, high-performance data systems.</p>
+<h2 id="maintainability">maintainability</h2>
+<ul>
+<li>devops</li>
+<li>https://en.wikipedia.org/wiki/Spaghetti_code</li>
+</ul>
+<p>In the context of building data-intensive applications, maintainability refers to the ability of a system to be easily maintained and updated over time. Chapter 1 of "Designing Data-Intensive Applications" by Martin Kleppmann provides an overview of the techniques and technologies used to achieve maintainability in data systems.</p>
+<p>The chapter discusses the challenges of achieving maintainability, such as the need for modularity, abstraction, and encapsulation. It introduces the concept of software architecture, which involves breaking a system down into components that can be developed and maintained independently. It discusses different architectural styles, such as layered architecture and microservices architecture, and explains how they can help to achieve maintainability.</p>
+<p>The chapter also introduces the concept of version control, which is a technique for tracking changes to source code over time. It discusses different version control systems, such as Git and Subversion, and explains how they can help to achieve maintainability by making it easier to track and manage changes to a system's codebase.</p>
+<p>The chapter emphasizes the importance of testing and debugging in achieving maintainability. It introduces different types of testing, such as unit testing and integration testing, and explains how they can help to identify and prevent bugs in a system. It also discusses the importance of monitoring and logging, which can help to identify and diagnose problems in a running system.</p>
+<p>Overall, the Maintainability section of "Designing Data-Intensive Applications" emphasizes the importance of maintainability in data systems and introduces techniques for achieving it. The section lays the foundation for the rest of the book, which goes into more detail on the different technologies and architectures used to build maintainable, adaptable data systems.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Designing Data-Intensive Applications"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../chapter2/" class="btn btn-neutral float-right" title="Chapter 2">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../chapter2/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
