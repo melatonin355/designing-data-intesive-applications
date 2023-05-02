@@ -1,5 +1,5 @@
 
-# Designing data intensive Applications mkdocs
+# Designing data intensive Applications 
 <img src="https://griffio.github.io/public/ddia.jpg" alt="DDIA book cover" width="430" height="347">
 
 
