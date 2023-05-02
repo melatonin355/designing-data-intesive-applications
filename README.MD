@@ -6,7 +6,7 @@
 
 Part I: Foundations of Data Systems 
 
-Chapter 1: Reliable, Scalable, and Maintainable Applications
+[Chapter 1: Reliable, Scalable, and Maintainable Applications](chapter1.md)
 
 -   Introduces the three key attributes of good data systems: reliability, scalability, and maintainability
 -   Discusses the trade-offs and challenges involved in achieving these attributes
