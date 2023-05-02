@@ -1,11 +1,7 @@
 site_name: Designing Data Intesive Application Notes
 
 theme:
-    name: readthedocs
-    highlightjs: true
-    hljs_languages:
-        - yaml
-        - python
+    name: material
 nav:
     - Home: index.md
     - Chapter 1: chapter1.md
