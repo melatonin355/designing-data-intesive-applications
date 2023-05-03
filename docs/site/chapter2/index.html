@@ -1,470 +1,127 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Chapter 2 Data Models - Designing Data-Intensive Application Notes</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Chapter 2 Data Models";
+        var mkdocs_page_input_path = "chapter2.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/markdown.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
 
-<!doctype html>
-<html lang="en" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-      
-      
-      
-        <link rel="prev" href="../chapter1/">
-      
-      
-        <link rel="next" href="../chapter5/">
-      
-      <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.9">
-    
-    
-      
-        <title>Chapter 2 Data Models - Designing Data Intesive Application Notes</title>
-      
-    
-    
-      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
-      
-      
+<body class="wy-body-for-nav" role="document">
 
-    
-    
-    
-      
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
-    
-    
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
-    
-      
-
-    
-    
-    
-  </head>
-  
-  
-    <body dir="ltr">
-  
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
-    
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
-    <div data-md-component="skip">
-      
-        
-        <a href="#chapter-2" class="md-skip">
-          Skip to content
-        </a>
-      
-    </div>
-    <div data-md-component="announce">
-      
-    </div>
-    
-    
-      
-
-  
-
-<header class="md-header md-header--shadow" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Designing Data Intesive Application Notes" class="md-header__button md-logo" aria-label="Designing Data Intesive Application Notes" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
-
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
-            Designing Data Intesive Application Notes
-          </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
-            
-              Chapter 2 Data Models
-            
-          </span>
-        </div>
-      </div>
-    </div>
-    
-    
-    
-      <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
-        </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Designing Data-Intensive Application Notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
 </div>
-    
-    
-  </nav>
-  
-</header>
-    
-    <div class="md-container" data-md-component="container">
-      
-      
-        
-          
-        
-      
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
-          
-            
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
+      </div>
 
-
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Designing Data Intesive Application Notes" class="md-nav__button md-logo" aria-label="Designing Data Intesive Application Notes" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
-
-    </a>
-    Designing Data Intesive Application Notes
-  </label>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
-        Introduction
-      </a>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../chapter1/">Chapter 1</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Chapter 2 Data Models</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#data-models">Data Models:</a>
     </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter1/" class="md-nav__link">
-        Chapter 1
-      </a>
+    <li class="toctree-l2"><a class="reference internal" href="#query-languages">Query Languages:</a>
     </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-    
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Chapter 2 Data Models
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        Chapter 2 Data Models
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#data-models" class="md-nav__link">
-    Data Models:
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#query-languages" class="md-nav__link">
-    Query Languages:
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#relational-model-versus-document-model" class="md-nav__link">
-    Relational Model Versus Document Model
-  </a>
-  
-    <nav class="md-nav" aria-label="Relational Model Versus Document Model">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#advantages" class="md-nav__link">
-    Advantages:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#disadvantages" class="md-nav__link">
-    Disadvantages:
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    Summary
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#questions-during-review" class="md-nav__link">
-    Questions during review
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#further-clarification" class="md-nav__link">
-    Further clarification
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-is-the-data-stored-in-nosql-db" class="md-nav__link">
-    How is the data stored in nosql dB?
-  </a>
-  
-</li>
-      
+    <li class="toctree-l2"><a class="reference internal" href="#relational-model-versus-document-model">Relational Model Versus Document Model</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#advantages">Advantages:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#disadvantages">Disadvantages:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#questions-during-review">Questions during review</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#further-clarification">Further clarification</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-is-the-data-stored-in-nosql-db">How is the data stored in nosql dB?</a>
+    </li>
     </ul>
-  
-</nav>
-      
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../chapter5/">Chapter 5 Replication</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Designing Data-Intensive Application Notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Chapter 2 Data Models</li>
+    <li class="wy-breadcrumbs-aside">
     </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter5/" class="md-nav__link">
-        Chapter 5 Replication
-      </a>
-    </li>
-  
-
-    
   </ul>
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-            
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#data-models" class="md-nav__link">
-    Data Models:
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#query-languages" class="md-nav__link">
-    Query Languages:
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#relational-model-versus-document-model" class="md-nav__link">
-    Relational Model Versus Document Model
-  </a>
-  
-    <nav class="md-nav" aria-label="Relational Model Versus Document Model">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#advantages" class="md-nav__link">
-    Advantages:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#disadvantages" class="md-nav__link">
-    Disadvantages:
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    Summary
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#questions-during-review" class="md-nav__link">
-    Questions during review
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#further-clarification" class="md-nav__link">
-    Further clarification
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-is-the-data-stored-in-nosql-db" class="md-nav__link">
-    How is the data stored in nosql dB?
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          
-            <div class="md-content" data-md-component="content">
-              <article class="md-content__inner md-typeset">
-                
-                  
-
-
-<h1 id="chapter-2">Chapter 2</h1>
+                <h1 id="chapter-2">Chapter 2<a class="headerlink" href="#chapter-2" title="Permanent link">&para;</a></h1>
 <p>Data Models and Query Languages</p>
 <p>The limits of my language mean the limits of my world.
 —Ludwig Wittgenstein, Tractatus Logico-Philosophicus (1922)</p>
 <p>Chapter 2 focuses on data models and query languages, which serve as the foundation
 for understanding how various databases and systems are designed to store, organize, and retrieve data.</p>
-<h2 id="data-models">Data Models:</h2>
+<h2 id="data-models">Data Models:<a class="headerlink" href="#data-models" title="Permanent link">&para;</a></h2>
 <p>Data models are abstract representations of how data is organized and structured. They are essential for ensuring that data is stored efficiently and can be easily accessed and manipulated. The chapter discusses three primary data models:</p>
 <p>a. Relational Model: Introduced by E.F. Codd in 1970, the relational model organizes data in tables (relations) consisting of rows (tuples) and columns (attributes). It is the basis for SQL databases, which are widely used in various applications.</p>
 <p>b. Document Model: This model stores data in semi-structured formats like JSON or XML. It is schema-less, allowing more flexibility in data representation and is often used in NoSQL databases like MongoDB and Couchbase.</p>
 <p>c. Graph Model: The graph model represents data as nodes (entities) and edges (relationships). It is particularly suitable for representing complex relationships, such as social networks or recommendation systems. Graph databases like Neo4j and ArangoDB utilize this model.</p>
-<h2 id="query-languages">Query Languages:</h2>
+<h2 id="query-languages">Query Languages:<a class="headerlink" href="#query-languages" title="Permanent link">&para;</a></h2>
 <p>Query languages are used to interact with databases and retrieve or manipulate data. They help bridge the gap between human-readable queries and low-level data storage. The chapter discusses several query languages for different data models:</p>
 <p>a. SQL (Structured Query Language): SQL is a declarative query language used primarily for relational databases. It allows users to specify what data they want, rather than how to retrieve it.</p>
 <p>b. MapReduce: A functional programming model used for processing large-scale data across distributed systems. It involves two primary functions - Map (transforming data) and Reduce (aggregating results).</p>
 <p>c. NoSQL Query Languages: Various NoSQL databases have their query languages, such as MongoDB's JSON-based query language or Cypher for Neo4j.</p>
 <p>d. GraphQL: A query language for APIs, allowing clients to request specific data from a server. It enables more efficient and flexible data retrieval.</p>
-<h2 id="relational-model-versus-document-model">Relational Model Versus Document Model</h2>
+<h2 id="relational-model-versus-document-model">Relational Model Versus Document Model<a class="headerlink" href="#relational-model-versus-document-model" title="Permanent link">&para;</a></h2>
 <p>the section on the relational model versus the document model highlights the fundamental differences between these two data models and their respective use cases.</p>
 <ol>
 <li>Relational Model:</li>
@@ -481,126 +138,126 @@ c. Wide adoption and mature ecosystem.</p>
 <li>Document Model:</li>
 </ol>
 <p>The document model stores data in semi-structured formats, such as JSON or XML. It allows for schema-less or schema-flexible storage, providing more flexibility in data representation. Document databases, such as MongoDB and Couchbase, use specialized query languages tailored to their data structures.</p>
-<h3 id="advantages">Advantages:</h3>
+<h3 id="advantages">Advantages:<a class="headerlink" href="#advantages" title="Permanent link">&para;</a></h3>
 <p>a. Greater flexibility in handling diverse and evolving data structures.</p>
 <p>b. Better performance for read-heavy workloads and simpler data access patterns, as related data can be stored together in a single document.</p>
 <p>c. Easier to scale horizontally due to the denormalized nature of data storage.</p>
-<h3 id="disadvantages">Disadvantages:</h3>
+<h3 id="disadvantages">Disadvantages:<a class="headerlink" href="#disadvantages" title="Permanent link">&para;</a></h3>
 <p>a. Lack of schema enforcement can lead to data inconsistency.</p>
 <p>b. Limited support for complex joins, making it challenging to query related data across multiple documents.</p>
 <p>The choice between the relational and document model depends on the specific requirements of the application. The relational model is more suitable for applications that require strict consistency, complex querying, and transactional support. In contrast, the document model is more appropriate for applications that need flexibility in data representation, faster read operations, and simpler access patterns.</p>
-<h2 id="summary">Summary</h2>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
 <p>Data models are a huge subject, and in this chapter we have taken a quick look at a broad variety of different models. We didn’t have space to go into all the details of each model, but hopefully the overview has been enough to whet your appetite to find out more about the model that best fits your application’s requirements.</p>
 <p>Historically, data started out being represented as one big tree (the hierarchical model), but that wasn’t good for representing many-to-many relationships, so the relational model was invented to solve that problem. More recently, developers found that some applications don’t fit well in the relational model either. New nonrelational “NoSQL” datastores have diverged in two main directions:</p>
 <ol>
 <li>Document databases target use cases where data comes in self-contained docu‐ ments and relationships between one document and another are rare.</li>
 <li>Graph databases go in the opposite direction, targeting use cases where anything is potentially related to everything.</li>
 </ol>
-<h2 id="questions-during-review">Questions during review</h2>
+<h2 id="questions-during-review">Questions during review<a class="headerlink" href="#questions-during-review" title="Permanent link">&para;</a></h2>
 <p>Declarative SQL (also known as the query language) is a way to describe what you want without specifying how to achieve it. In contrast, imperative SQL (also known as the data manipulation language) consists of statements that describe the actions you want to perform on the data.</p>
 <p>Here's an example of declarative SQL:</p>
-<pre><code class="language-sql">-- Declarative SQL: Query to get the names of all employees who work in the 'Finance' department
-SELECT employees.name
-FROM employees
-JOIN departments ON employees.department_id = departments.id
-WHERE departments.name = 'Finance';
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Declarative SQL: Query to get the names of all employees who work in the &#39;Finance&#39; department</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">employees</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">id</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Finance&#39;</span><span class="p">;</span>
+</code></pre></div>
 <p>In this example, you describe what you want (names of employees in the Finance department) without specifying how to achieve it. The SQL engine is responsible for determining the best way to execute the query and retrieve the desired data.</p>
 <p>Here's an example of imperative SQL:</p>
-<pre><code class="language-sql">-- Imperative SQL: Insert a new employee into the 'employees' table
-INSERT INTO employees (name, age, department_id)
-VALUES ('John Doe', 30, 1);
+<div class="highlight"><pre><span></span><code><span class="c1">-- Imperative SQL: Insert a new employee into the &#39;employees&#39; table</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">department_id</span><span class="p">)</span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;John Doe&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
 
--- Imperative SQL: Update an employee's name in the 'employees' table
-UPDATE employees
-SET name = 'Jane Doe'
-WHERE id = 1;
+<span class="c1">-- Imperative SQL: Update an employee&#39;s name in the &#39;employees&#39; table</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">employees</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Jane Doe&#39;</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 
--- Imperative SQL: Delete an employee from the 'employees' table
-DELETE FROM employees
-WHERE id = 1;
-</code></pre>
+<span class="c1">-- Imperative SQL: Delete an employee from the &#39;employees&#39; table</span>
+<span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</code></pre></div>
 <p>In these imperative SQL examples, you are specifying the actions to perform on the data: insert a new employee, update an existing employee's name, and delete an employee. The SQL engine performs these actions directly on the data without having to determine how to achieve the desired outcome.</p>
 <p>Note that the distinction between declarative and imperative SQL is not strict, and the terms are not always used in the same way by everyone. The examples provided here are meant to illustrate the general idea of declarative SQL as focusing on the desired outcome without specifying how to achieve it, whereas imperative SQL focuses on the actions to be performed on the data.</p>
-<h2 id="further-clarification">Further clarification</h2>
+<h2 id="further-clarification">Further clarification<a class="headerlink" href="#further-clarification" title="Permanent link">&para;</a></h2>
 <p><strong>Is it fair to say SQL is both imperative and declarative?</strong> Maybe not, maybe yes.. </p>
 <p>SQL is primarily a declarative language. However, when it comes to working with stored procedures or triggers, procedural SQL extensions like PL/SQL (in Oracle) or T-SQL (in SQL Server) are used, which have imperative programming constructs.</p>
 <p>These procedural extensions allow you to use control structures like loops, conditional statements, and error handling within the database environment, making it possible to create more complex, imperative-style logic.</p>
-<pre><code class="language-sql">
--- T-SQL: Create a stored procedure to update the salary of employees in a specific department
-CREATE PROCEDURE UpdateSalaryByDepartment
-    @DepartmentName NVARCHAR(50),
-    @SalaryIncrease DECIMAL(5, 2)
-AS
-BEGIN
-    -- Declare a variable to hold the department ID
-    DECLARE @DepartmentId INT;
+<div class="highlight"><pre><span></span><code><span class="c1">-- T-SQL: Create a stored procedure to update the salary of employees in a specific department</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">UpdateSalaryByDepartment</span>
+<span class="w">    </span><span class="o">@</span><span class="n">DepartmentName</span><span class="w"> </span><span class="n">NVARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
+<span class="w">    </span><span class="o">@</span><span class="n">SalaryIncrease</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="k">AS</span>
+<span class="k">BEGIN</span>
+<span class="w">    </span><span class="c1">-- Declare a variable to hold the department ID</span>
+<span class="w">    </span><span class="k">DECLARE</span><span class="w"> </span><span class="o">@</span><span class="n">DepartmentId</span><span class="w"> </span><span class="nb">INT</span><span class="p">;</span>
 
-    -- Get the department ID
-    SELECT @DepartmentId = id
-    FROM Departments
-    WHERE name = @DepartmentName;
+<span class="w">    </span><span class="c1">-- Get the department ID</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">DepartmentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">Departments</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">DepartmentName</span><span class="p">;</span>
 
-    -- Check if the department ID is not NULL
-    IF @DepartmentId IS NOT NULL
-    BEGIN
-        -- Update the salary of employees in the specified department
-        UPDATE Employees
-        SET salary = salary * (1 + @SalaryIncrease)
-        WHERE department_id = @DepartmentId;
-    END
-    ELSE
-    BEGIN
-        -- Raise an error if the department is not found
-        RAISERROR('The specified department does not exist.', 16, 1);
-    END
-END;
-
-</code></pre>
+<span class="w">    </span><span class="c1">-- Check if the department ID is not NULL</span>
+<span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="o">@</span><span class="n">DepartmentId</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<span class="w">    </span><span class="k">BEGIN</span>
+<span class="w">        </span><span class="c1">-- Update the salary of employees in the specified department</span>
+<span class="w">        </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">Employees</span>
+<span class="w">        </span><span class="k">SET</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">@</span><span class="n">SalaryIncrease</span><span class="p">)</span>
+<span class="w">        </span><span class="k">WHERE</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">DepartmentId</span><span class="p">;</span>
+<span class="w">    </span><span class="k">END</span>
+<span class="w">    </span><span class="k">ELSE</span>
+<span class="w">    </span><span class="k">BEGIN</span>
+<span class="w">        </span><span class="c1">-- Raise an error if the department is not found</span>
+<span class="w">        </span><span class="n">RAISERROR</span><span class="p">(</span><span class="s1">&#39;The specified department does not exist.&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="k">END</span>
+<span class="k">END</span><span class="p">;</span>
+</code></pre></div>
 <p>In this T-SQL example, we create a stored procedure to update the salary of employees in a specific department. The procedure uses imperative constructs like variable declaration, conditional statements (IF-ELSE), and error handling (RAISERROR) to implement the logic.</p>
-<h2 id="how-is-the-data-stored-in-nosql-db">How is the data stored in nosql dB?</h2>
-
-
-
-
-
-                
-              </article>
+<h2 id="how-is-the-data-stored-in-nosql-db">How is the data stored in nosql dB?<a class="headerlink" href="#how-is-the-data-stored-in-nosql-db" title="Permanent link">&para;</a></h2>
+              
             </div>
-          
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../chapter1/" class="btn btn-neutral float-left" title="Chapter 1"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../chapter5/" class="btn btn-neutral float-right" title="Chapter 5 Replication">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
           
         </div>
-        
-      </main>
-      
-        <footer class="md-footer">
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
-  
-  
-    Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Material for MkDocs
-    </a>
-  
-</div>
-      
-    </div>
+      </div>
+
+    </section>
+
   </div>
-</footer>
-      
-    </div>
-    <div class="md-dialog" data-md-component="dialog">
-      <div class="md-dialog__inner md-typeset"></div>
-    </div>
-    
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <script src="../assets/javascripts/bundle.fac441b0.min.js"></script>
-      
+      <span><a href="../chapter1/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
-  </body>
+    
+      <span><a href="../chapter5/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
 </html>

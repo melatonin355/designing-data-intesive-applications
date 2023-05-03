@@ -1,9 +1,30 @@
-site_name: Designing Data Intesive Application Notes
+site_name: Designing Data-Intensive Application Notes
 
 theme:
-    name: material
+  name: readthedocs
+  highlightjs: true
+  hljs_languages:
+    - yaml
+    - python
+    - markdown
+  palette:
+    primary: 'grey'
+    accent: 'indigo'
+
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.arithmatex
+  - mdx_truly_sane_lists
+  - abbr
+  - attr_list
+  - def_list
+  - footnotes
+  - meta
+  - toc:
+      permalink: true
+
 nav:
-    - Introduction: index.md
-    - Chapter 1: chapter1.md
-    - Chapter 2 Data Models: chapter2.md
-    - Chapter 5 Replication: chapter5.md
+  - Introduction: index.md
+  - Chapter 1: chapter1.md
+  - Chapter 2 Data Models: chapter2.md
+  - Chapter 5 Replication: chapter5.md

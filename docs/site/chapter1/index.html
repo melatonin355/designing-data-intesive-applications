@@ -1,439 +1,193 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Chapter 1 - Designing Data-Intensive Application Notes</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Chapter 1";
+        var mkdocs_page_input_path = "chapter1.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/markdown.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
 
-<!doctype html>
-<html lang="en" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-      
-      
-      
-        <link rel="prev" href="..">
-      
-      
-        <link rel="next" href="../chapter2/">
-      
-      <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.9">
-    
-    
-      
-        <title>Chapter 1 - Designing Data Intesive Application Notes</title>
-      
-    
-    
-      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
-      
-      
+<body class="wy-body-for-nav" role="document">
 
-    
-    
-    
-      
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
-    
-    
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
-    
-      
-
-    
-    
-    
-  </head>
-  
-  
-    <body dir="ltr">
-  
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
-    
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
-    <div data-md-component="skip">
-      
-        
-        <a href="#nonfunctional" class="md-skip">
-          Skip to content
-        </a>
-      
-    </div>
-    <div data-md-component="announce">
-      
-    </div>
-    
-    
-      
-
-  
-
-<header class="md-header md-header--shadow" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Designing Data Intesive Application Notes" class="md-header__button md-logo" aria-label="Designing Data Intesive Application Notes" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
-
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
-            Designing Data Intesive Application Notes
-          </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
-            
-              Chapter 1
-            
-          </span>
-        </div>
-      </div>
-    </div>
-    
-    
-    
-      <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
-        </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Designing Data-Intensive Application Notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
 </div>
-    
-    
-  </nav>
-  
-</header>
-    
-    <div class="md-container" data-md-component="container">
-      
-      
-        
-          
-        
-      
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
-          
-            
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
+      </div>
 
-
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Designing Data Intesive Application Notes" class="md-nav__button md-logo" aria-label="Designing Data Intesive Application Notes" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
-
-    </a>
-    Designing Data Intesive Application Notes
-  </label>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
-        Introduction
-      </a>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Chapter 1</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#11-non-functional-requirements1">1.1 Non-Functional Requirements1</a>
     </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-    
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Chapter 1
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        Chapter 1
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#nonfunctional" class="md-nav__link">
-    NonFunctional
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reliability" class="md-nav__link">
-    Reliability
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#scalability" class="md-nav__link">
-    scalability
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#maintainability" class="md-nav__link">
-    maintainability
-  </a>
-  
-</li>
-      
+    <li class="toctree-l2"><a class="reference internal" href="#12-reliability">1.2 Reliability</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#13-scalability">1.3 Scalability</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#14-maintainability">1.4 Maintainability</a>
+    </li>
     </ul>
-  
-</nav>
-      
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../chapter2/">Chapter 2 Data Models</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../chapter5/">Chapter 5 Replication</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Designing Data-Intensive Application Notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Chapter 1</li>
+    <li class="wy-breadcrumbs-aside">
     </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter2/" class="md-nav__link">
-        Chapter 2 Data Models
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter5/" class="md-nav__link">
-        Chapter 5 Replication
-      </a>
-    </li>
-  
-
-    
   </ul>
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-            
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#nonfunctional" class="md-nav__link">
-    NonFunctional
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reliability" class="md-nav__link">
-    Reliability
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#scalability" class="md-nav__link">
-    scalability
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#maintainability" class="md-nav__link">
-    maintainability
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          
-            <div class="md-content" data-md-component="content">
-              <article class="md-content__inner md-typeset">
-                
-                  
-
-
-  <h1>Chapter 1</h1>
-
-<ol>
-<li>Reliable, Scalable, and Maintainable Applications</li>
-</ol>
-<h2 id="nonfunctional">NonFunctional</h2>
-<p>Nonfunctional requirements include qualities such as performance, reliability, availability, scalability, maintainability, security, usability, and many others. These attributes are often critical for the success of a system and should be considered and prioritized alongside the system's functional requirements.</p>
-<p>Performance, for example, refers to the system's ability to respond to user requests within an acceptable time frame. Reliability refers to the system's ability to function correctly and consistently over time. Scalability refers to the system's ability to handle increasing amounts of work or traffic without a decrease in performance. Maintainability refers to the ease with which the system can be maintained, updated, or modified over time.</p>
-<p>Usability refers to the ease with which users can interact with the system and accomplish their tasks. Security refers to the system's ability to protect against unauthorized access or attacks.</p>
-<p>Nonfunctional requirements are often measured and evaluated using specific metrics or benchmarks, such as response time, availability percentage, or defect rate. These metrics can be used to track and monitor the system's performance over time and identify areas for improvement.</p>
-<p>Overall, nonfunctional requirements are an important aspect of system design and should be considered and prioritized alongside the system's functional requirements.</p>
-<h2 id="reliability">Reliability</h2>
-<p>In the context of building data-intensive applications, reliability refers to the ability of a system to operate correctly even in the presence of faults. Chapter 1 of "Designing Data-Intensive Applications" by Martin Kleppmann provides an overview of the techniques and technologies used to achieve reliability in data systems.</p>
+                <h1 id="1-reliable-scalable-and-maintainable-applications">1. Reliable, Scalable, and Maintainable Applications<a class="headerlink" href="#1-reliable-scalable-and-maintainable-applications" title="Permanent link">&para;</a></h1>
+<h2 id="11-non-functional-requirements1">1.1 Non-Functional Requirements<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#11-non-functional-requirements1" title="Permanent link">&para;</a></h2>
+<p>Non-functional requirements include qualities such as performance, reliability, availability, scalability, maintainability, security, usability, and many others. These attributes are often critical for the success of a system and should be considered and prioritized alongside the system's functional requirements.</p>
+<p><em>Performance</em>, for example, refers to the system's ability to respond to user requests within an acceptable time frame. <em>Reliability</em> refers to the system's ability to function correctly and consistently over time. <em>Scalability</em> refers to the system's ability to handle increasing amounts of work or traffic without a decrease in performance. <em>Maintainability</em> refers to the ease with which the system can be maintained, updated, or modified over time.</p>
+<p><em>Usability</em> refers to the ease with which users can interact with the system and accomplish their tasks. <em>Security</em> refers to the system's ability to protect against unauthorized access or attacks.</p>
+<p>Non-functional requirements are often measured and evaluated using specific metrics or benchmarks, such as response time, availability percentage, or defect rate. These metrics can be used to track and monitor the system's performance over time and identify areas for improvement.</p>
+<p>Overall, non-functional requirements are an important aspect of system design and should be considered and prioritized alongside the system's functional requirements.</p>
+<h2 id="12-reliability">1.2 Reliability<a class="headerlink" href="#12-reliability" title="Permanent link">&para;</a></h2>
+<p>In the context of building data-intensive applications, reliability refers to the ability of a system to operate correctly even in the presence of faults<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>. Chapter 1 of "Designing Data-Intensive Applications" by Martin Kleppmann provides an overview of the techniques and technologies used to achieve reliability in data systems.</p>
 <p>The chapter discusses different types of faults that can occur in a system, such as hardware faults, software faults, and human errors. It introduces the concept of fault tolerance, which involves designing a system to continue functioning even when faults occur.</p>
 <p>One technique for achieving fault tolerance is replication, which involves creating multiple copies of data or processes and distributing them across multiple machines. The chapter discusses different replication strategies, such as single-leader replication and multi-leader replication. It also introduces the concept of quorums, which are used to ensure consistency between replicas.</p>
-<p>The chapter also discusses other techniques for achieving reliability, such as redundancy, isolation, and versioning. It introduces the CAP theorem, which states that it is impossible for a distributed system to simultaneously provide consistency, availability, and partition tolerance. The chapter explains the trade-offs involved in choosing between these attributes and discusses different strategies for balancing them.</p>
-<p>Overall, the Reliable section of "Designing Data-Intensive Applications" emphasizes the importance of reliability in data systems and introduces techniques for achieving fault tolerance and consistency. The section lays the foundation for the rest of the book, which goes into more detail on the different technologies and architectures used to build reliable, fault-tolerant data systems.</p>
-<h2 id="scalability">scalability</h2>
-<p>In the context of building data-intensive applications, scalability refers to the ability of a system to handle increasing amounts of work or traffic without a decrease in performance. Chapter 1 of "Designing Data-Intensive Applications" by Martin Kleppmann provides an overview of the techniques and technologies used to achieve scalability in data systems.</p>
-<p>The chapter discusses the challenges of achieving scalability, such as the need for parallelism, load balancing, and partitioning. It introduces the concept of vertical scaling, which involves increasing the resources of a single machine to handle more work, and horizontal scaling, which involves distributing work across multiple machines.</p>
-<p>The chapter discusses different types of partitioning strategies, such as range partitioning and hash partitioning. It explains how partitioning can help to achieve scalability by allowing data to be distributed across multiple machines and processed in parallel.</p>
-<p>The chapter also introduces the concept of load balancing, which involves distributing work evenly across multiple machines to avoid overloading any one machine. It discusses different load balancing strategies, such as round-robin and least connections, and explains how load balancing can help to achieve scalability and improve performance.</p>
+<p>The chapter also discusses other techniques for achieving reliability, such as redundancy, isolation, and versioning. It introduces the CAP theorem, which states that it is impossible for a distributed system to simultaneously provide consistency, availability, and partition tolerance<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>. The chapter explains the trade-offs involved in choosing between these attributes and discusses different strategies for balancing them.</p>
+<p>Overall, the Reliability section of "Designing Data-Intensive Applications" emphasizes the importance of reliability in data systems and introduces techniques for achieving fault tolerance and consistency. The section lays the foundation for the rest of the book, which goes into more detail on the different technologies and architectures used to build reliable, fault-tolerant data systems.</p>
+<h2 id="13-scalability">1.3 Scalability<a class="headerlink" href="#13-scalability" title="Permanent link">&para;</a></h2>
+<p>In the context of building data-intensive applications, scalability refers to the ability of a system to handle increasing amounts of work or traffic without a decrease in performance<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>. Chapter 1 of "Designing Data-Intensive Applications" by Martin Kleppmann provides an overview of the techniques and technologies used to achieve scalability in data systems.</p>
+<p>The chapter discusses the challenges of achieving scalability, such as the need for parallelism, load balancing, and partitioning. It introduces the concept of vertical scaling, which involves increasing the resources of a single machine to handle more work, and horizontal scaling, which involves distributing work across multiple machines<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup>.</p>
+<p>The chapter discusses different types of partitioning strategies, such as
+The chapter discusses different types of partitioning strategies, such as range partitioning and hash partitioning<sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup>. It explains how partitioning can help to achieve scalability by allowing data to be distributed across multiple machines and processed in parallel.</p>
+<p>The chapter also introduces the concept of load balancing, which involves distributing work evenly across multiple machines to avoid overloading any one machine<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup>. It discusses different load balancing strategies, such as round-robin and least connections, and explains how load balancing can help to achieve scalability and improve performance.</p>
 <p>Overall, the Scalability section of "Designing Data-Intensive Applications" emphasizes the importance of scalability in data systems and introduces techniques for achieving it. The section lays the foundation for the rest of the book, which goes into more detail on the different technologies and architectures used to build scalable, high-performance data systems.</p>
-<h2 id="maintainability">maintainability</h2>
-<ul>
-<li>devops</li>
-<li>https://en.wikipedia.org/wiki/Spaghetti_code</li>
-</ul>
-<p>In the context of building data-intensive applications, maintainability refers to the ability of a system to be easily maintained and updated over time. Chapter 1 of "Designing Data-Intensive Applications" by Martin Kleppmann provides an overview of the techniques and technologies used to achieve maintainability in data systems.</p>
-<p>The chapter discusses the challenges of achieving maintainability, such as the need for modularity, abstraction, and encapsulation. It introduces the concept of software architecture, which involves breaking a system down into components that can be developed and maintained independently. It discusses different architectural styles, such as layered architecture and microservices architecture, and explains how they can help to achieve maintainability.</p>
-<p>The chapter also introduces the concept of version control, which is a technique for tracking changes to source code over time. It discusses different version control systems, such as Git and Subversion, and explains how they can help to achieve maintainability by making it easier to track and manage changes to a system's codebase.</p>
-<p>The chapter emphasizes the importance of testing and debugging in achieving maintainability. It introduces different types of testing, such as unit testing and integration testing, and explains how they can help to identify and prevent bugs in a system. It also discusses the importance of monitoring and logging, which can help to identify and diagnose problems in a running system.</p>
+<h2 id="14-maintainability">1.4 Maintainability<a class="headerlink" href="#14-maintainability" title="Permanent link">&para;</a></h2>
+<p>In the context of building data-intensive applications, maintainability refers to the ability of a system to be easily maintained and updated over time[^8]. Chapter 1 of "Designing Data-Intensive Applications" by Martin Kleppmann provides an overview of the techniques and technologies used to achieve maintainability in data systems.</p>
+<p>The chapter discusses the challenges of achieving maintainability, such as the need for modularity, abstraction, and encapsulation. It introduces the concept of software architecture, which involves breaking a system down into components that can be developed and maintained independently[^9]. It discusses different architectural styles, such as layered architecture and microservices architecture, and explains how they can help to achieve maintainability.</p>
+<p>The chapter also introduces the concept of version control, which is a technique for tracking changes to source code over time[^10]. It discusses different version control systems, such as Git and Subversion, and explains how they can help to achieve maintainability by making it easier to track and manage changes to a system's codebase.</p>
+<p>The chapter emphasizes the importance of testing and debugging in achieving maintainability[^11]. It introduces different types of testing, such as unit testing and integration testing, and explains how they can help to identify and prevent bugs in a system. It also discusses the importance of monitoring and logging, which can help to identify and diagnose problems in a running system[^12].</p>
 <p>Overall, the Maintainability section of "Designing Data-Intensive Applications" emphasizes the importance of maintainability in data systems and introduces techniques for achieving it. The section lays the foundation for the rest of the book, which goes into more detail on the different technologies and architectures used to build maintainable, adaptable data systems.</p>
-
-
-
-
-
-                
-              </article>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Sommerville, I. (2015). Software Engineering. 10th Edition. Pearson.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>Kleppmann, M. (2017). Designing Data-Intensive Applications. O'Reilly Media, Inc.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>Brewer, E. A. (2000). Towards robust distributed systems (abstract). In Proceedings of the Nineteenth Annual ACM Symposium on Principles of Distributed Computing (PODC '00).&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>Kleppmann, M. (2017). Designing Data-Intensive Applications. O'Reilly Media, Inc.&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:5">
+<p>Bondi, A. B. (2000). Characteristics of scalability and their impact on performance. In Proceedings of the 2nd International Workshop on Software and Performance (WOSP '00).&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:6">
+<p>Kleppmann, M. (2017). Designing Data-Intensive Applications. O'Reilly Media, Inc.&#160;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:7">
+<p>Cardellini, V., Casalicchio, E., Colajanni, M., &amp; Yu, P. S. (1999). The state of the&#160;<a class="footnote-backref" href="#fnref:7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+              
             </div>
-          
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../chapter2/" class="btn btn-neutral float-right" title="Chapter 2 Data Models">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
           
         </div>
-        
-      </main>
-      
-        <footer class="md-footer">
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
-  
-  
-    Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Material for MkDocs
-    </a>
-  
-</div>
-      
-    </div>
+      </div>
+
+    </section>
+
   </div>
-</footer>
-      
-    </div>
-    <div class="md-dialog" data-md-component="dialog">
-      <div class="md-dialog__inner md-typeset"></div>
-    </div>
-    
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <script src="../assets/javascripts/bundle.fac441b0.min.js"></script>
-      
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
     
-  </body>
+    
+      <span><a href="../chapter2/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
 </html>

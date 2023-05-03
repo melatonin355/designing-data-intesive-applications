@@ -1,587 +1,110 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Chapter 5 Replication - Designing Data-Intensive Application Notes</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Chapter 5 Replication";
+        var mkdocs_page_input_path = "chapter5.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/markdown.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
 
-<!doctype html>
-<html lang="en" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-      
-      
-      
-        <link rel="prev" href="../chapter2/">
-      
-      
-      <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.9">
-    
-    
-      
-        <title>Chapter 5 Replication - Designing Data Intesive Application Notes</title>
-      
-    
-    
-      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
-      
-      
+<body class="wy-body-for-nav" role="document">
 
-    
-    
-    
-      
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
-    
-    
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
-    
-      
-
-    
-    
-    
-  </head>
-  
-  
-    <body dir="ltr">
-  
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
-    
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
-    <div data-md-component="skip">
-      
-        
-        <a href="#part-ii-distributed-data" class="md-skip">
-          Skip to content
-        </a>
-      
-    </div>
-    <div data-md-component="announce">
-      
-    </div>
-    
-    
-      
-
-  
-
-<header class="md-header md-header--shadow" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Designing Data Intesive Application Notes" class="md-header__button md-logo" aria-label="Designing Data Intesive Application Notes" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
-
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
-            Designing Data Intesive Application Notes
-          </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
-            
-              Chapter 5 Replication
-            
-          </span>
-        </div>
-      </div>
-    </div>
-    
-    
-    
-      <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
-        </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Designing Data-Intensive Application Notes
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
 </div>
-    
-    
-  </nav>
-  
-</header>
-    
-    <div class="md-container" data-md-component="container">
-      
-      
-        
-          
-        
-      
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
-          
-            
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
+      </div>
 
-
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Designing Data Intesive Application Notes" class="md-nav__button md-logo" aria-label="Designing Data Intesive Application Notes" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
-
-    </a>
-    Designing Data Intesive Application Notes
-  </label>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
-        Introduction
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter1/" class="md-nav__link">
-        Chapter 1
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter2/" class="md-nav__link">
-        Chapter 2 Data Models
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-    
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Chapter 5 Replication
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        Chapter 5 Replication
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#part-ii-distributed-data" class="md-nav__link">
-    Part II: Distributed Data
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#big-picture" class="md-nav__link">
-    Big Picture
-  </a>
-  
-    <nav class="md-nav" aria-label="Big Picture">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#chapter-5-replication" class="md-nav__link">
-    Chapter 5: Replication
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#replication-in-distributed-systems" class="md-nav__link">
-    Replication in Distributed Systems
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#single-leader-diagram" class="md-nav__link">
-    Single Leader Diagram
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#51-leaders-and-followers" class="md-nav__link">
-    5.1 Leaders and Followers:
-  </a>
-  
-    <nav class="md-nav" aria-label="5.1 Leaders and Followers:">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#52-synchronous-versus-asynchronous-replication" class="md-nav__link">
-    5.2 Synchronous Versus Asynchronous Replication:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#53-setting-up-new-followers" class="md-nav__link">
-    5.3 Setting Up New Followers:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#54-handling-node-outages" class="md-nav__link">
-    5.4 Handling Node Outages:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#55-implementation-of-replication-logs" class="md-nav__link">
-    5.5 Implementation of Replication Logs:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#56-problems-with-replication-lag" class="md-nav__link">
-    5.6 Problems with Replication Lag:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reading-your-own-writes" class="md-nav__link">
-    Reading Your Own Writes:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#monotonic-reads" class="md-nav__link">
-    Monotonic Reads:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#consistent-prefix-reads" class="md-nav__link">
-    Consistent Prefix Reads:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#510-solutions-for-replication-lag" class="md-nav__link">
-    5.10 Solutions for Replication Lag:
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#further-ideas" class="md-nav__link">
-    Further Ideas
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resources" class="md-nav__link">
-    Resources
-  </a>
-  
-</li>
-      
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../chapter1/">Chapter 1</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../chapter2/">Chapter 2 Data Models</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Chapter 5 Replication</a>
+    <ul class="current">
     </ul>
-  
-</nav>
-      
-    </li>
-  
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
 
-    
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Designing Data-Intensive Application Notes</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Chapter 5 Replication</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
   </ul>
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-            
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#part-ii-distributed-data" class="md-nav__link">
-    Part II: Distributed Data
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#big-picture" class="md-nav__link">
-    Big Picture
-  </a>
-  
-    <nav class="md-nav" aria-label="Big Picture">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#chapter-5-replication" class="md-nav__link">
-    Chapter 5: Replication
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#replication-in-distributed-systems" class="md-nav__link">
-    Replication in Distributed Systems
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#single-leader-diagram" class="md-nav__link">
-    Single Leader Diagram
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#51-leaders-and-followers" class="md-nav__link">
-    5.1 Leaders and Followers:
-  </a>
-  
-    <nav class="md-nav" aria-label="5.1 Leaders and Followers:">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#52-synchronous-versus-asynchronous-replication" class="md-nav__link">
-    5.2 Synchronous Versus Asynchronous Replication:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#53-setting-up-new-followers" class="md-nav__link">
-    5.3 Setting Up New Followers:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#54-handling-node-outages" class="md-nav__link">
-    5.4 Handling Node Outages:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#55-implementation-of-replication-logs" class="md-nav__link">
-    5.5 Implementation of Replication Logs:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#56-problems-with-replication-lag" class="md-nav__link">
-    5.6 Problems with Replication Lag:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reading-your-own-writes" class="md-nav__link">
-    Reading Your Own Writes:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#monotonic-reads" class="md-nav__link">
-    Monotonic Reads:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#consistent-prefix-reads" class="md-nav__link">
-    Consistent Prefix Reads:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#510-solutions-for-replication-lag" class="md-nav__link">
-    5.10 Solutions for Replication Lag:
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#further-ideas" class="md-nav__link">
-    Further Ideas
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resources" class="md-nav__link">
-    Resources
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          
-            <div class="md-content" data-md-component="content">
-              <article class="md-content__inner md-typeset">
-                
-                  
-
-
-<h2 id="part-ii-distributed-data">Part II: Distributed Data</h2>
-<h2 id="big-picture">Big Picture</h2>
+                <h2 id="part-ii-distributed-data">Part II: Distributed Data<a class="headerlink" href="#part-ii-distributed-data" title="Permanent link">&para;</a></h2>
+<h2 id="big-picture">Big Picture<a class="headerlink" href="#big-picture" title="Permanent link">&para;</a></h2>
 <ul>
 <li>https://github.com/donnemartin/system-design-primer#master-slave-replication </li>
 </ul>
-<h3 id="chapter-5-replication">Chapter 5: Replication</h3>
+<h3 id="chapter-5-replication">Chapter 5: Replication<a class="headerlink" href="#chapter-5-replication" title="Permanent link">&para;</a></h3>
 <ul>
 <li><a href="#51-leaders-and-followers">5.1 Leaders and Followers</a></li>
 <li><a href="#52-synchronous-versus-asynchronous-replication">5.2 Synchronous Versus Asynchronous Replication</a></li>
 <li><a href="#53-setting-up-new-followers">5.3 Setting Up New Followers</a></li>
 <li><a href="#54-handling-node-outages">5.4 Handling Node Outages</a></li>
 <li><a href="#55-implementation-of-replication-logs">5.5 Implementation of Replication Logs</a></li>
-<li><a href="#56-problems-with-replication-lag">5.6 Problems with Replication Lag</a></li>
+<li><a href="#56-problems-with-replication-lag">5.6 Problems with Replication Lag</a><ul>
 <li><a href="#reading-your-own-writes">Reading Your Own Writes</a></li>
 <li><a href="#monotonic-reads">Monotonic Reads</a></li>
 <li><a href="#consistent-prefix-reads">Consistent Prefix Reads</a></li>
+</ul>
+</li>
 <li><a href="#510-solutions-for-replication-lag">5.10 Solutions for Replication Lag</a></li>
 </ul>
-<h2 id="replication-in-distributed-systems">Replication in Distributed Systems</h2>
+<h2 id="replication-in-distributed-systems">Replication in Distributed Systems<a class="headerlink" href="#replication-in-distributed-systems" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
 <p><strong>Replication</strong>: Keeping a copy of the same data on multiple machines connected via a network. Reasons for replication:
@@ -600,17 +123,17 @@
    a. <strong>Single-leader</strong>
    b. <strong>Multi-leader</strong>
    c. <strong>Leaderless replication</strong></p>
-</li>
-<li>
-<p>Each has pros and cons, which are examined in detail.</p>
+<ul>
+<li>Each has pros and cons, which are examined in detail.</li>
+</ul>
 </li>
 <li>
 <p>Replication trade-offs:
    a. <strong>Synchronous</strong> vs. <strong>asynchronous replication</strong>
    b. Handling <strong>failed replicas</strong></p>
-</li>
-<li>
-<p>These are often database configuration options with similar principles across implementations.</p>
+<ul>
+<li>These are often database configuration options with similar principles across implementations.</li>
+</ul>
 </li>
 <li>
 <p>Replication principles haven't changed much since the 1970s due to fundamental network constraints.</p>
@@ -619,7 +142,7 @@
 <p>Developers often misunderstand issues such as <strong>eventual consistency</strong>. The chapter also discusses <strong>read-your-writes</strong> and <strong>monotonic reads guarantees</strong>.</p>
 </li>
 </ol>
-<h2 id="single-leader-diagram">Single Leader Diagram</h2>
+<h2 id="single-leader-diagram">Single Leader Diagram<a class="headerlink" href="#single-leader-diagram" title="Permanent link">&para;</a></h2>
 <pre>
         +---------+
         |         |
@@ -666,25 +189,27 @@
 <li><strong>Change propagation</strong>: The Leader Replica processes the change and propagates it to the Follower Replicas (Follower Replica 1 and Follower Replica 2).</li>
 <li><strong>End User reads data</strong>: The end user reads the updated data, including the newly added picture, from the selected Follower Replica (in this case, Follower Replica 1).</li>
 </ol>
-<h1 id="51-leaders-and-followers">5.1 Leaders and Followers:</h1>
+<h1 id="51-leaders-and-followers">5.1 Leaders and Followers:<a class="headerlink" href="#51-leaders-and-followers" title="Permanent link">&para;</a></h1>
 <p>The chapter begins by introducing the concept of leader-based replication, where one node is responsible for accepting writes and replicating changes to the followers to ensure data consistency.</p>
-<h2 id="52-synchronous-versus-asynchronous-replication">5.2 Synchronous Versus Asynchronous Replication:</h2>
+<h2 id="52-synchronous-versus-asynchronous-replication">5.2 Synchronous Versus Asynchronous Replication:<a class="headerlink" href="#52-synchronous-versus-asynchronous-replication" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Synchronous replication</strong>:</li>
+<li><strong>Synchronous replication</strong>:<ul>
 <li>Strong consistency across replicas.</li>
 <li>Higher latency for write operations.</li>
-<li>
-<p>Lower fault tolerance.</p>
+<li>Lower fault tolerance.</li>
+</ul>
 </li>
-<li>
-<p><strong>Asynchronous replication</strong>:</p>
-</li>
+</ul>
+<ul>
+<li><strong>Asynchronous replication</strong>:<ul>
 <li>Lower latency for write operations.</li>
 <li>Weaker consistency across replicas.</li>
 <li>Higher fault tolerance.</li>
 </ul>
+</li>
+</ul>
 <p>The choice between synchronous and asynchronous replication depends on the specific requirements of the system and the desired balance between consistency, performance, and fault tolerance.</p>
-<h2 id="53-setting-up-new-followers">5.3 Setting Up New Followers:</h2>
+<h2 id="53-setting-up-new-followers">5.3 Setting Up New Followers:<a class="headerlink" href="#53-setting-up-new-followers" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Snapshot</strong>: Take a consistent snapshot of the leader's database without locking the entire database.</li>
 <li><strong>Copy</strong>: Transfer the snapshot to the new follower node.</li>
@@ -692,17 +217,19 @@
 <li><strong>Catch Up</strong>: The follower processes the backlog of data changes and continues to process new changes from the leader as they occur.</li>
 </ol>
 <p>The practical steps for setting up a follower vary by database. Some systems automate the process, while others require manual execution by an administrator.</p>
-<h2 id="54-handling-node-outages"><strong>5.4 Handling Node Outages:</strong></h2>
+<h2 id="54-handling-node-outages"><strong>5.4 Handling Node Outages:</strong><a class="headerlink" href="#54-handling-node-outages" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Follower failure: Catch-up recovery</strong>: Followers can recover from a crash or temporary network interruption using their local log of data changes. They reconnect to the leader and request all data changes that occurred during their disconnection.</li>
-<li><strong>Leader failure: Failover</strong>: Promoting a follower to be the new leader, reconfiguring clients to send writes to the new leader, and ensuring other followers consume data changes from the new leader. Failover can be manual or automatic, and involves:</li>
+<li><strong>Leader failure: Failover</strong>: Promoting a follower to be the new leader, reconfiguring clients to send writes to the new leader, and ensuring other followers consume data changes from the new leader. Failover can be manual or automatic, and involves:<ul>
 <li>Determining leader failure: Typically using a timeout.</li>
 <li>Choosing a new leader: Through an election process or appointing a new leader.</li>
 <li>Reconfiguring the system: Clients send write requests to the new leader, and the old leader must become a follower recognizing the new leader.</li>
+</ul>
+</li>
 <li><strong>Failover challenges</strong>: Asynchronous replication can result in unreplicated writes or data loss; discarding writes can lead to inconsistency; split-brain scenarios can cause data loss or corruption; and choosing the right timeout for leader failure detection can impact recovery time and risk unnecessary failovers.</li>
 </ol>
 <p>Some operations teams prefer manual failovers due to these challenges. These issues are fundamental problems in distributed systems and are discussed in greater depth in Chapters 8 and 9.</p>
-<h2 id="55-implementation-of-replication-logs"><strong>5.5 Implementation of Replication Logs:</strong></h2>
+<h2 id="55-implementation-of-replication-logs"><strong>5.5 Implementation of Replication Logs:</strong><a class="headerlink" href="#55-implementation-of-replication-logs" title="Permanent link">&para;</a></h2>
 <p>Replication logs serve as the foundation for leader-based replication in distributed systems, ensuring data consistency across nodes. This summary is based on the book "Designing Data-Intensive Applications" and is tailored for software engineers.</p>
 <pre>
 +-----------+       +-----------+       +-----------+
@@ -763,7 +290,7 @@ Log Index | Trigger Event | Table | Old Row Data | New Row Data
 </pre>
 <p>Uses custom triggers to capture and propagate changes. Ideal for <strong>custom replication solutions</strong>, <strong>real-time data processing or transformation</strong>, and systems with heterogeneous databases.</p>
 <p>The choice of replication method depends on system requirements and constraints, such as <strong>consistency, performance, compatibility, and complexity</strong>.</p>
-<h2 id="56-problems-with-replication-lag"><strong>5.6 Problems with Replication Lag:</strong></h2>
+<h2 id="56-problems-with-replication-lag"><strong>5.6 Problems with Replication Lag:</strong><a class="headerlink" href="#56-problems-with-replication-lag" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Replication is used for <strong>high availability</strong>, <strong>scalability</strong>, and reduced <strong>latency</strong></li>
 <li><strong>Leader-based replication</strong> requires writes to go through a single node, but read-only queries can go to any replica</li>
@@ -773,45 +300,43 @@ Log Index | Trigger Event | Table | Old Row Data | New Row Data
 <li><strong>Replication lag</strong> can cause inconsistencies between the leader and followers</li>
 <li>Replication lag can increase with high system load or network problems, causing real problems for applications</li>
 </ul>
-<h2 id="reading-your-own-writes"><strong>Reading Your Own Writes:</strong></h2>
+<h2 id="reading-your-own-writes"><strong>Reading Your Own Writes:</strong><a class="headerlink" href="#reading-your-own-writes" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Asynchronous replication can cause new data to not yet have reached the replica when the user views it shortly after making a write</li>
 <li>Read-after-write consistency guarantees that the user will always see any updates they submitted themselves</li>
 <li>Implementing read-after-write consistency in a system with leader-based replication requires various techniques, such as reading from the leader for user-modifiable data or tracking the time of the last update</li>
-<li>
-<p>Replicas distributed across multiple datacenters or accessed from multiple devices add complexity and require centralized metadata or routing requests to the datacenter containing the leader</p>
-</li>
-<li>
-<p>Another complication arises when the same user is accessing your service from multiple devices, for example a desktop web browser and a mobile app. In this case you may want to provide cross-device read-after-write consistency</p>
-</li>
+<li>Replicas distributed across multiple datacenters or accessed from multiple devices add complexity and require centralized metadata or routing requests to the datacenter containing the leader</li>
+</ul>
+<ul>
+<li>Another complication arises when the same user is accessing your service from multiple devices, for example a desktop web browser and a mobile app. In this case you may want to provide cross-device read-after-write consistency</li>
 </ul>
 <p>Links to relevant Wikipedia articles:
 - <a href="https://en.wikipedia.org/wiki/Asynchronous_replication">Asynchronous replication</a>
 - <a href="https://en.wikipedia.org/wiki/Consistency_model">Consistency model</a>
 - <a href="https://en.wikipedia.org/wiki/Data_center">Data center</a></p>
-<h2 id="monotonic-reads"><strong>Monotonic Reads:</strong></h2>
+<h2 id="monotonic-reads"><strong>Monotonic Reads:</strong><a class="headerlink" href="#monotonic-reads" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Reading from different asynchronous replicas can lead to a user seeing things moving backward in time</li>
 <li>Monotonic reads guarantee that time does not go backward when making multiple reads in sequence</li>
 <li>Monotonic reads are a lesser guarantee than strong consistency but stronger than eventual consistency</li>
 <li>One way to achieve monotonic reads is to make sure each user always makes their reads from the same replica, chosen based on a hash of the user ID</li>
 </ul>
-<pre><code class="language-sql">     Follower with little lag        Follower with greater lag
-+-------------------------+     +-------------------------+
-|                         |     |                         |
-| User 2345 reads comment |     |                         |
-| added by User 1234      |     |                         |
-| Result A                |     |                         |
-|                         |     |                         |
-+-------------------------+     |                         |
-                                 |                         |
-                                 |                         |
-                                 | User 2345 reads comment |
-                                 | added by User 1234      |
-                                 | No result returned      |
-                                 |                         |
-                                 +-------------------------+
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="w">     </span><span class="n">Follower</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">little</span><span class="w"> </span><span class="n">lag</span><span class="w">        </span><span class="n">Follower</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">greater</span><span class="w"> </span><span class="n">lag</span>
+<span class="o">+</span><span class="c1">-------------------------+     +-------------------------+</span>
+<span class="o">|</span><span class="w">                         </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w">                         </span><span class="o">|</span>
+<span class="o">|</span><span class="w"> </span><span class="k">User</span><span class="w"> </span><span class="mi">2345</span><span class="w"> </span><span class="k">reads</span><span class="w"> </span><span class="k">comment</span><span class="w"> </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w">                         </span><span class="o">|</span>
+<span class="o">|</span><span class="w"> </span><span class="n">added</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">User</span><span class="w"> </span><span class="mi">1234</span><span class="w">      </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w">                         </span><span class="o">|</span>
+<span class="o">|</span><span class="w"> </span><span class="k">Result</span><span class="w"> </span><span class="n">A</span><span class="w">                </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w">                         </span><span class="o">|</span>
+<span class="o">|</span><span class="w">                         </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w">                         </span><span class="o">|</span>
+<span class="o">+</span><span class="c1">-------------------------+     |                         |</span>
+<span class="w">                                 </span><span class="o">|</span><span class="w">                         </span><span class="o">|</span>
+<span class="w">                                 </span><span class="o">|</span><span class="w">                         </span><span class="o">|</span>
+<span class="w">                                 </span><span class="o">|</span><span class="w"> </span><span class="k">User</span><span class="w"> </span><span class="mi">2345</span><span class="w"> </span><span class="k">reads</span><span class="w"> </span><span class="k">comment</span><span class="w"> </span><span class="o">|</span>
+<span class="w">                                 </span><span class="o">|</span><span class="w"> </span><span class="n">added</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">User</span><span class="w"> </span><span class="mi">1234</span><span class="w">      </span><span class="o">|</span>
+<span class="w">                                 </span><span class="o">|</span><span class="w"> </span><span class="k">No</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="n">returned</span><span class="w">      </span><span class="o">|</span>
+<span class="w">                                 </span><span class="o">|</span><span class="w">                         </span><span class="o">|</span>
+<span class="w">                                 </span><span class="o">+</span><span class="c1">-------------------------+</span>
+</code></pre></div>
 <p>This diagram represents the scenario where a user (User 2345) makes two queries to two different asynchronous replicas with different replication lags. The first query (Result A) is to a follower with little lag, and returns a comment added by another user (User 1234). The second query is to a follower with greater lag, and returns no results. This leads to the impression that time has gone backward for the user. To prevent this anomaly, we need monotonic reads.</p>
 <p>One way of achieving monotonic reads is to make sure that each user always makes their reads from the same replica (different users can read from different replicas). For example, the replica can be chosen based on a hash of the user ID, rather than randomly. However, if that replica fails, the user’s queries will need to be rerouted to another replica.</p>
 <p>Monotonic reads can be achieved by ensuring that each user always reads from the same replica. This can be implemented through:</p>
@@ -830,9 +355,9 @@ Log Index | Trigger Event | Table | Old Row Data | New Row Data
 </li>
 </ol>
 <p>The mapping of users to replicas must be consistent and not change frequently to avoid inconsistent results.</p>
-<h2 id="consistent-prefix-reads"><strong>Consistent Prefix Reads:</strong></h2>
+<h2 id="consistent-prefix-reads"><strong>Consistent Prefix Reads:</strong><a class="headerlink" href="#consistent-prefix-reads" title="Permanent link">&para;</a></h2>
 <p>Inconsistent replication lag can lead to violations of causality, where reads may appear to happen before writes. This can be prevented by ensuring consistent prefix reads, which guarantees that if a sequence of writes occurs in a certain order, anyone reading those writes will see them appear in the same order. In partitioned databases, different partitions may operate independently, making it challenging to ensure consistent prefix reads. One solution is to write causally related writes to the same partition, but this may not always be efficient. Algorithms that track causal dependencies can also help prevent causality violations.</p>
-<h2 id="510-solutions-for-replication-lag"><strong>5.10 Solutions for Replication Lag:</strong></h2>
+<h2 id="510-solutions-for-replication-lag"><strong>5.10 Solutions for Replication Lag:</strong><a class="headerlink" href="#510-solutions-for-replication-lag" title="Permanent link">&para;</a></h2>
 <p><strong>eventually consistent systems</strong> </p>
 <p>The chapter presents various techniques for addressing replication lag and improving data consistency, such as read-after-write consistency, quorum reads and writes, and version vectors.</p>
 <ol>
@@ -847,54 +372,53 @@ Log Index | Trigger Event | Table | Old Row Data | New Row Data
 </li>
 </ol>
 <p>Each of these techniques comes with its own trade-offs in terms of performance, latency, and complexity. The choice of which method to use depends on the specific requirements and characteristics of the distributed system being designed.</p>
-<h1 id="further-ideas">Further Ideas</h1>
+<h1 id="further-ideas">Further Ideas<a class="headerlink" href="#further-ideas" title="Permanent link">&para;</a></h1>
 <ul>
 <li>https://github.com/donnemartin/system-design-primer#replication</li>
 </ul>
-<h1 id="resources">Resources</h1>
+<h1 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h1>
 <p>Design Consitent Hashing - https://systemdesign.one/consistent-hashing-explained/</p>
-
-
-
-
-
-                
-              </article>
+              
             </div>
-          
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../chapter2/" class="btn btn-neutral float-left" title="Chapter 2 Data Models"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
           
         </div>
-        
-      </main>
-      
-        <footer class="md-footer">
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
-  
-  
-    Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Material for MkDocs
-    </a>
-  
-</div>
-      
-    </div>
+      </div>
+
+    </section>
+
   </div>
-</footer>
-      
-    </div>
-    <div class="md-dialog" data-md-component="dialog">
-      <div class="md-dialog__inner md-typeset"></div>
-    </div>
-    
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <script src="../assets/javascripts/bundle.fac441b0.min.js"></script>
-      
+      <span><a href="../chapter2/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
-  </body>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
 </html>
