@@ -7,6 +7,9 @@
 
 - https://github.com/donnemartin/system-design-primer#master-slave-replication 
 
+## Images
+- https://github.com/melatonin355/designing-data-intesive-applications/blob/main/docs/docs/DDIA-chapter_5_figures.pdf
+
 
 ### Chapter 5: Replication
 
