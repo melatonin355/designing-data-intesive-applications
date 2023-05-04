@@ -11,6 +11,10 @@
 - https://github.com/melatonin355/designing-data-intesive-applications/blob/main/docs/docs/DDIA-chapter_5_figures.pdf
 
 
+## Further topologies
+- https://drive.google.com/drive/folders/1hf1H48cL1HYXzIm7Q-5lKXIsqslCH5Cb?usp=sharing
+
+
 ### Chapter 5: Replication
 
 
